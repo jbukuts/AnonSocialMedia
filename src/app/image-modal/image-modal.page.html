@@ -1,0 +1,21 @@
+<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+
+<ion-content>
+
+  <ion-button fill="clear" (click)="dismiss()">
+    <ion-icon slot="icon-only" src="assets/icon/close-outline.svg"></ion-icon>
+  </ion-button>
+
+  <ion-slides>
+    <ion-slide>
+      <div class="swiper-zoom-container">
+        <img src="{{img}}">
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-button fill="clear" download="img">
+    <ion-icon slot="icon-only" src="assets/icon/download-outline.svg"></ion-icon>
+  </ion-button>
+
+</ion-content>

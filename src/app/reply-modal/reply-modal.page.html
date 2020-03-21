@@ -1,0 +1,26 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title *ngIf="replyTo">Reply {{replyTo}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label class="postTitle" *ngIf="text">{{text}}</ion-label>
+
+
+  <form [formGroup]="new_reply_form" (submit)="createReply(new_reply_form.value)">
+    <ion-item>
+      <ion-label position="stacked">Text</ion-label>
+      <ion-textarea type="text" formControlName="text" required=true></ion-textarea>
+    </ion-item>
+
+    <ion-button class="submit-btn" expand="block" type="submit" disabled={{!new_reply_form.valid}}>
+      Create Reply
+    </ion-button>
+
+  </form>
+
+</ion-content>

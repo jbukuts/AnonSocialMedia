@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    
+    <ion-title>Create New Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="new_post_form" (submit)="createPost(new_post_form.value)">
+    <ion-item>
+      <ion-label>Title</ion-label>
+      <ion-input type="text" formControlName="title" required=true></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Text</ion-label>
+      <ion-textarea type="text" formControlName="text" required=true></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Image URL</ion-label>
+      <ion-input type="url" formControlName="img" required=true></ion-input>
+    </ion-item>
+
+    <ion-button class="submit-btn" expand="block" type="submit" disabled={{!new_post_form.valid}}>
+      Create Post
+    </ion-button>
+  </form>
+
+</ion-content>

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Order Details</ion-title>
+
+    <ion-button color="primary" slot="end" (click)="deleteOrder()">
+      Delete Order
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="current_order">
+  <ion-card style="margin-top: 10px; margin-bottom: 0px;" >
+    <ion-card-header>
+      <ion-card-title>
+        Order Number : #{{current_order.orderNumber}}
+      </ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-item lines="none" style="font-weight: bold; font-size: 24px;">${{ current_order.total }}</ion-item>
+      <ion-item lines="none">{{current_order.quantity}} {{current_order.productName}}s were purchased on {{current_order.orderDate}}</ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

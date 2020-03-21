@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Search All Boards</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar></ion-searchbar>
+
+  <ion-list lines="none" *ngFor="let p of posts" style="margin-bottom: 2px; margin-top: 2px;">
+    <ion-item style="margin: auto; border-radius: 10px; width: 95%;" color="tertiary" >
+      <ion-thumbnail slot="start">
+        <ion-img [src]="p.img" style="border-radius: 50%"></ion-img>
+      </ion-thumbnail>
+      
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label>No. {{ p.docId }}</ion-label>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-label style="font-weight: bold;">{{ p.title }}</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-icon src="assets/icon/arrow-forward-outline.svg"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>
