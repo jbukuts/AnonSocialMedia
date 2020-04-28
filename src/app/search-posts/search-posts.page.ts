@@ -12,7 +12,8 @@ import * as firebase from 'firebase';
 })
 export class SearchPostsPage implements OnInit {
 
-  posts;
+  public posts: any;
+  searchTerm: string = "";
 
   constructor(
     private router: Router,
@@ -31,6 +32,17 @@ export class SearchPostsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.setFilteredPosts();
+  }
+
+  setFilteredPosts() {
+    this.posts = this.itemService.filterPosts(this.searchTerm);
+  }
+
+  goToItem(post){
+    console.log("displaying item info");
+    console.log(post);
+    this.router.navigate(["./product-detail",post]);
   }
 
 }

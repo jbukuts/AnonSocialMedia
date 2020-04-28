@@ -92,6 +92,13 @@ export class ItemService {
     toast.present();
   }
 
+  filterPosts(searchTerm) {
+    console.log("filtering: " + searchTerm);
+    return this.posts.filter(post => {
+      return post.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });
+  }
+
 }
 
 export const snapshotToArray = snapshot => {
