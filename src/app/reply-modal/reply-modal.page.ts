@@ -37,10 +37,13 @@ export class ReplyModalPage implements OnInit {
     });
   }
 
+  // called when the button is clicked
   private createReply(reply) {
     console.log(reply);
     // this will present a toast
     this.itemService.presentToast("Reply Created!");
+
+    var self = this;
 
     // add to db
     var db = firebase.firestore();
@@ -50,6 +53,7 @@ export class ReplyModalPage implements OnInit {
     })
     .then(function(docRef) {
       console.log("Document written with ID",docRef.id);
+      // TODO: add replies to your post!
     })
     .catch(function(error){
       console.error("Error adding document: ",error);
