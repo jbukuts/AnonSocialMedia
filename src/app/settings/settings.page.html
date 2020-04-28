@@ -8,5 +8,23 @@
 </ion-header>
 
 <ion-content>
+  <ion-item button (click)="routeTo('./change-theme')">
+    <ion-icon slot="start" src="/assets/icon/color-palette-outline.svg"></ion-icon>
+    <ion-label>
+      Change Theme
+    </ion-label>
+  </ion-item>
 
+  <ion-item button (click)="routeTo('./app-info')">
+    <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+    <ion-label>
+      About App
+    </ion-label>
+  </ion-item>
+
+  <ion-item (click)="clearPosts()" lines=none>
+    <ion-label color="danger" style="text-align: center;">
+      Clear Your Posts
+    </ion-label>
+  </ion-item>
 </ion-content>

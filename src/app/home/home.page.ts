@@ -44,6 +44,9 @@ export class HomePage implements OnInit {
     var self = this;
   }
 
+  getTitle(title) {
+    return (title.length > 15) ? title.substring(0,15)+"..." : title;
+  }
 
   // go to the new item page
   directNewPost(){

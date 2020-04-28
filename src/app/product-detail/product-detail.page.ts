@@ -163,10 +163,15 @@ export class ProductDetailPage implements OnInit {
     });
     
     // present the modal
+    document.getElementById("content").style.filter = "blur(5px)";
+    document.getElementById("header").style.filter = "blur(5px)";
     await modal.present();
 
+    
     // wait for the modal to dismiss to reload data
     await modal.onWillDismiss();
+    document.getElementById("content").style.filter = "blur(0px)";
+    document.getElementById("header").style.filter = "blur(0px)";
   }
 
 }

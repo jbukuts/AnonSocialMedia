@@ -30,6 +30,10 @@ export class ItemService {
   // this will represent the post you have made
   yourPost:Array<any>=new Array();
 
+  public getYourPosts() {
+    return this.yourPost;
+  }
+
 
   // return the items
   public getPosts() {
@@ -60,6 +64,7 @@ export class ItemService {
 
   // this will create a new item
   public createPost(title,text,img) {
+    var self = this;
 
     // add to db
     var db = firebase.firestore();
@@ -67,15 +72,24 @@ export class ItemService {
       title : title,
       text : text,
       img : img,
-      number : 0,
+      number : 0
     })
     .then(function(docRef) {
       console.log("Document written with ID",docRef.id);
+      // add to the post youve made
+      self.yourPost.push({
+        title : title,
+        text : text,
+        img : img,
+        number : 0,
+        docId : docRef.id
+      });
     })
     .catch(function(error){
       console.error("Error adding document: ",error);
     });
 
+    
     // update list as item is now gone
     this.events.publish('dataloaded',Date.now());
     this.getPosts();

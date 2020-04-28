@@ -43,6 +43,14 @@ const routes: Routes = [
   {
     path: 'search-posts',
     loadChildren: () => import('./search-posts/search-posts.module').then( m => m.SearchPostsPageModule)
+  },
+  {
+    path: 'app-info',
+    loadChildren: () => import('./app-info/app-info.module').then( m => m.AppInfoPageModule)
+  },
+  {
+    path: 'change-theme',
+    loadChildren: () => import('./change-theme/change-theme.module').then( m => m.ChangeThemePageModule)
   }
 ];
 
