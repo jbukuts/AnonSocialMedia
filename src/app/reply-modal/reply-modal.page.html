@@ -17,6 +17,12 @@
       <ion-textarea type="text" formControlName="text" required=true></ion-textarea>
     </ion-item>
 
+    <ion-button class="submit-btn" expand="block" (click)="selectImage()">
+      Add Image
+    </ion-button>
+
+    <ion-img *ngIf="imgFile" style="border-radius: 10px; overflow:hidden;" [src]="imgFile"></ion-img>
+
     <ion-button class="submit-btn" expand="block" type="submit" disabled={{!new_reply_form.valid}}>
       Create Reply
     </ion-button>

@@ -74,7 +74,7 @@ export class ProductDetailPage implements OnInit {
 
   // return string of date from timestamp input
   private getDate(d) {
-    var date = new Date(d);
+    var date = new Date(parseInt(d));
     return (date.getMonth()+1)+ "/" + date.getDate() + "/" +date.getFullYear() +" "+date.getHours()+":"+("0"+date.getMinutes()).slice(-2)+":"+("0"+date.getSeconds()).slice(-2);
   }
 
