@@ -52,6 +52,7 @@ const routes: Routes = [
     path: 'change-theme',
     loadChildren: () => import('./change-theme/change-theme.module').then( m => m.ChangeThemePageModule)
   }
+
 ];
 
 @NgModule({

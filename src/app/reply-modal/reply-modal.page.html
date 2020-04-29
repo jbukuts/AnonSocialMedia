@@ -20,6 +20,11 @@
     <ion-button class="submit-btn" expand="block" type="submit" disabled={{!new_reply_form.valid}}>
       Create Reply
     </ion-button>
+    
+    <ion-button expand="block" (click)="browseImg()">Browse for image</ion-button>
+    <ion-button expand="block" (click)="takePicture()">Take a picture</ion-button>
+    Image to be uploaded:
+    <ion-img style="border-radius: 10px; overflow:hidden;" [src]="imgFile"></ion-img>
 
   </form>
 

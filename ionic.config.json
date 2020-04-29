@@ -1,5 +1,7 @@
 {
   "name": "todomenu",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
