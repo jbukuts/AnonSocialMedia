@@ -23,8 +23,10 @@
    <ion-item *ngFor="let reply of post_replys" class="reply" lines="none">
      <ion-text>
        <h5 (click)="createReply(reply)" class="postId">No. {{reply.docId}}</h5>
+       <ion-img *ngIf="reply.img" (click)="expandImg(reply.img)" [src]="reply.img"></ion-img>
        <p class="postText">{{reply.text}}</p>
-       <p class="replyTo">Replying to : {{reply.replyTo}}</p>
+       <p (click)="showPost(reply)" class="replyTo">Replying to : {{reply.replyTo}}</p>
+       <p class="replyTo">{{getDate(reply.timestamp)}}</p>
      </ion-text>
    </ion-item>
 

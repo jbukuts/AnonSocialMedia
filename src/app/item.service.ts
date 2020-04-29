@@ -34,6 +34,40 @@ export class ItemService {
     return this.yourPost;
   }
 
+  private compareDate(a,b) {
+    return a - b;
+  }
+
+  public async getReplies(threadId) {
+    var curr = this;
+    let replies = [];
+    var db = firebase.firestore();
+
+    // get replies and order by timestamp
+    db.collection('original-post/'+threadId+'/replies').orderBy('timestamp').get().then( function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        var item = doc.data();
+        console.log(doc.data());
+        console.log(doc.ref.id);
+
+        var date = new Date(item.timestamp);
+        console.log((date.getMonth()+1)+ "/" + date.getDate() + "/" +date.getFullYear() +" "+date.getHours()+":"+("0"+date.getMinutes()).slice(-2));
+
+
+        // add item to the database
+        // ensure doc is there for deletion
+        replies.push({
+          replyTo : item.replyTo,
+          text : item.text,
+          timestamp : item.timestamp,
+          docId : doc.ref.id
+        });
+      }
+    )});
+
+    return replies;
+  }
+
 
   // return the items
   public getPosts() {
@@ -47,6 +81,7 @@ export class ItemService {
         console.log(doc.data());
         console.log(doc.ref.id);
 
+      
         // add item to the database
         // ensure doc is there for deletion
         curr.posts.push({
@@ -108,6 +143,11 @@ export class ItemService {
 
   filterPosts(searchTerm) {
     console.log("filtering: " + searchTerm);
+
+    if (searchTerm == "") {
+      return this.posts;
+    }
+
     return this.posts.filter(post => {
       return post.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });

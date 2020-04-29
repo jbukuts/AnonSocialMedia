@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { Events } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ReplyModalPage } from '../reply-modal/reply-modal.page';
+import { ShowReplyModalPage } from '../show-reply-modal/show-reply-modal.page';
 import { ImageModalPage } from '../image-modal/image-modal.page';
 import { LoadingController } from '@ionic/angular';
 
@@ -71,75 +72,75 @@ export class ProductDetailPage implements OnInit {
     );
   }
 
+  // return string of date from timestamp input
+  private getDate(d) {
+    var date = new Date(d);
+    return (date.getMonth()+1)+ "/" + date.getDate() + "/" +date.getFullYear() +" "+date.getHours()+":"+("0"+date.getMinutes()).slice(-2)+":"+("0"+date.getSeconds()).slice(-2);
+  }
+
   // this will get the post 
   async getReplys(postId) {
     let replys = [];
     let self = this;
-    self.presentLoading();
+    await self.presentLoading();
     console.log("GETTING REPLYS FOR "+postId+"!");
-    replys = await self.recSearchPost(postId,replys);
-    console.log(replys);
-    self.dismissLoading();
+    replys = await this.itemService.getReplies(postId);
+    await self.dismissLoading();
     return replys;
-  }
-
-  async recSearchPost(postId : any,postArray : any) {
-    let self = this;
-    let replyList = await this.getList(postId);
-    
-    // the current post has no replies return
-    if (replyList.length == 0)
-      return postArray;
-    else {
-      // add new post found to current list
-      postArray = postArray.concat(replyList);
-
-      // iterate over new post looking for replies
-      for (let r of replyList) {
-        console.log("LOOKING FOR REPLIES TO "+r.docId+"!")
-        postArray = await self.recSearchPost(r.docId,postArray);
-      }
-    }
-
-    return postArray;
-  }
-
-  // get list from database with matching replyTo 
-  async getList(postId) {
-    let db = firebase.firestore();
-    let q = db.collection('reply-post').where("postId","==",postId);
-    let ret:Array<any>=new Array();
-
-    // find replys to the original post
-    await q.get().then( function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        var item = doc.data();
-        console.log(doc.data());
-        console.log(doc.ref.id);
-
-        // add item to the database
-        ret.push({
-          text : item.text,
-          replyTo : item.postId,
-          docId : doc.ref.id
-        });
-      });
-    });
-    return ret;
   }
 
   createReply(postId) {
     console.log("CREATING REPLY TO POST "+postId+"!");
-    this.presentModal(postId);
+    this.presentReplyModal(postId);
+  }
+
+  showPost(postId) {
+    console.log("showing post "+postId.replyTo);
+    var self = this;
+
+    let p;
+    if (this.current_post.docId == postId.replyTo) {
+      p = this.current_post;
+    }
+    else {   
+      for (var i=0; i<self.post_replys.length;i++) {
+        console.log(self.post_replys[i].docId );
+        if (self.post_replys[i].docId == postId.replyTo) {
+          p = self.post_replys[i];
+          break;
+        }
+      }
+    }
+
+    console.log(p);
+    this.presentShowReplyModal(p);
   }
 
   // shows the modal for the user to input text and create reply
-  async presentModal(post) {
+  async presentShowReplyModal(post) {
+    const modal = await this.modalController.create({
+      component: ShowReplyModalPage,
+      componentProps: {
+        'post' : post
+      },
+      backdropDismiss : true
+    });
+    
+    // present the modal
+    await modal.present();
+
+    // wait for the modal to dismiss to reload data
+    await modal.onWillDismiss();
+  }
+
+  // shows the modal for the user to input text and create reply
+  async presentReplyModal(post) {
     const modal = await this.modalController.create({
       component: ReplyModalPage,
       componentProps: {
         'replyTo': post.docId,
-        'text' : post.text
+        'text' : post.text,
+        'originalPost' : this.current_post.docId
       }
     });
     

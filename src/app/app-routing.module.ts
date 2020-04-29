@@ -51,6 +51,10 @@ const routes: Routes = [
   {
     path: 'change-theme',
     loadChildren: () => import('./change-theme/change-theme.module').then( m => m.ChangeThemePageModule)
+  },
+  {
+    path: 'show-reply-modal',
+    loadChildren: () => import('./show-reply-modal/show-reply-modal.module').then( m => m.ShowReplyModalPageModule)
   }
 ];
 
