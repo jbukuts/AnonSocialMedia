@@ -8,6 +8,11 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-text *ngIf="yourPosts.length==0">
+    <h2 style="text-align: center;">You've Made No Post Today</h2>
+  </ion-text>
+
   <ion-list lines="none" *ngFor="let p of yourPosts" style="margin-bottom: 2px; margin-top: 2px;">
     <ion-item  (click)="goToItem(p)" style="margin-bottom: 0px; margin-top: 0px; border-radius: 2px; width: 100%;" color="tertiary" >
       <ion-thumbnail *ngIf="p.img" slot="start">

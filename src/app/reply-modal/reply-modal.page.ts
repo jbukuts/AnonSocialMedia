@@ -18,6 +18,7 @@ export class ReplyModalPage implements OnInit {
 
   @Input() replyTo: string;
   @Input() text: string;
+  @Input() originalPost: string;
 
   constructor(
     public modalController: ModalController,
@@ -38,18 +39,19 @@ export class ReplyModalPage implements OnInit {
   }
 
   // called when the button is clicked
-  private createReply(reply) {
+  private async createReply(reply) {
     console.log(reply);
     // this will present a toast
-    this.itemService.presentToast("Reply Created!");
+    await this.itemService.presentToast("Reply Created!");
 
     var self = this;
 
     // add to db
     var db = firebase.firestore();
-    db.collection("reply-post").add({
+    db.collection('original-post/'+this.originalPost+'/replies').add({
       text : reply.text,
-      postId : this.replyTo
+      replyTo : this.replyTo,
+      timestamp : Date.now()
     })
     .then(function(docRef) {
       console.log("Document written with ID",docRef.id);
@@ -60,7 +62,7 @@ export class ReplyModalPage implements OnInit {
     });
 
     // clear the form and dismiss the modal
-    this.dismiss();
+    await this.dismiss();
     this.new_reply_form.reset();
     this.events.publish('replychange',Date.now());
   }
