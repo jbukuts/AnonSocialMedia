@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
+
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +15,8 @@ import { ImageModalPage } from './image-modal.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ImageModalPageRoutingModule
+    ImageModalPageRoutingModule,
+    PinchZoomModule
   ],
   declarations: [ImageModalPage]
 })

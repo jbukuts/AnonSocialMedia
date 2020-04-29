@@ -23,7 +23,6 @@ export class ShowReplyModalPage implements OnInit {
     public itemService: ItemService,
     public events: Events
   ) {
-    console.log(navParams.get('replyTo'));
     this.modalCtrl = modalController;
    }
 
@@ -31,7 +30,7 @@ export class ShowReplyModalPage implements OnInit {
   }
 
   private getDate(d) {
-    var date = new Date(d);
+    var date = new Date(parseInt(d));
     return (date.getMonth()+1)+ "/" + date.getDate() + "/" +date.getFullYear() +" "+date.getHours()+":"+("0"+date.getMinutes()).slice(-2)+":"+("0"+date.getSeconds()).slice(-2);
   }
 

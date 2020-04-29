@@ -2,7 +2,18 @@ ion-content {
     --background: rgb(160, 160, 160, .2);  
 }
 
+.swiper-zoom-container {
+    transform: translateY(-50%);
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
 
-ion-slides {
-    height: 80%;
+#saveButton {
+    transform: translateY(-100%);
+    margin: 0;
+    left: 0%;
+    position: absolute;
+    top: 100%;
 }
