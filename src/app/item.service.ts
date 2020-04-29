@@ -10,6 +10,7 @@ import { ToastController } from '@ionic/angular';
 })
 
 export class ItemService {
+  public darkMode: boolean;
 
   ref = firebase.database().ref('original-post/');
 
