@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 import * as firebase from 'firebase';
 import { ToastController } from '@ionic/angular';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -65,7 +64,7 @@ export class ItemService {
     let postList = [];
     let db = firebase.firestore();
 
-    db.collection(collectionName).get().then( function(querySnapshot) {
+    db.collection(collectionName).orderBy('timestamp', 'desc').get().then( function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         var item = doc.data();
         //console.log(doc.data());

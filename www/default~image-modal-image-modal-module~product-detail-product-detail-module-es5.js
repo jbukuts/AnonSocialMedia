@@ -1796,7 +1796,7 @@ var PinchZoomModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<ion-content>\n  <ion-button fill=\"clear\" (click)=\"dismiss()\">\n    <ion-icon slot=\"icon-only\" src=\"assets/icon/close-outline.svg\"></ion-icon>\n  </ion-button>\n\n  <div class=\"swiper-zoom-container\">\n    <pinch-zoom backgroundColor=\"rgba(0,0,0,0)\"> \n      <img src=\"{{img}}\">\n    </pinch-zoom>\n  </div>\n   \n\n  <ion-button id=\"saveButton\" fill=\"clear\" download=\"img\">\n    <ion-icon slot=\"icon-only\" src=\"assets/icon/download-outline.svg\"></ion-icon>\n  </ion-button>\n\n</ion-content>\n"
+module.exports = "\n<ion-content>\n  <ion-button fill=\"clear\" (click)=\"dismiss()\">\n    <ion-icon slot=\"icon-only\" src=\"assets/icon/close-outline.svg\"></ion-icon>\n  </ion-button>\n\n  <div class=\"swiper-zoom-container\">\n    <pinch-zoom backgroundColor=\"rgba(0,0,0,0)\"> \n      <img src=\"{{img}}\">\n    </pinch-zoom>\n  </div>\n   \n\n  <!--<ion-button id=\"saveButton\" fill=\"clear\" download=\"img\">\n    <ion-icon slot=\"icon-only\" src=\"assets/icon/download-outline.svg\"></ion-icon>\n  </ion-button>-->\n\n</ion-content>\n"
 
 /***/ }),
 

@@ -152,7 +152,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var NewItemPage = /** @class */ (function () {
-    function NewItemPage(router, formBuilder, itemService, toastController, camera, actionSheet, file, route, location) {
+    function NewItemPage(router, formBuilder, itemService, toastController, camera, actionSheet, file, route, location, navController) {
         this.router = router;
         this.formBuilder = formBuilder;
         this.itemService = itemService;
@@ -162,6 +162,7 @@ var NewItemPage = /** @class */ (function () {
         this.file = file;
         this.route = route;
         this.location = location;
+        this.navController = navController;
         this.regex = "^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$";
     }
     NewItemPage.prototype.pickImage = function (sourceType) {
@@ -268,7 +269,8 @@ var NewItemPage = /** @class */ (function () {
                             this.itemService.createPostNoImage(value.title, value.text, this.board);
                             this.new_post_form.reset();
                             this.presentToast();
-                            this.router.navigate(['./home']);
+                            this.navController.setDirection("back", true, "back");
+                            this.location.back();
                             return [2 /*return*/];
                         }
                         pictures = firebase__WEBPACK_IMPORTED_MODULE_8__["storage"]().ref('pictures/' + Object(uuid__WEBPACK_IMPORTED_MODULE_7__["v1"])());
@@ -285,6 +287,7 @@ var NewItemPage = /** @class */ (function () {
                         this.new_post_form.reset();
                         this.presentToast();
                         // return to last page
+                        this.navController.setDirection("back", true, "back");
                         this.location.back();
                         return [2 /*return*/];
                 }
@@ -300,7 +303,8 @@ var NewItemPage = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"] },
         { type: _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
-        { type: _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"] }
+        { type: _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] }
     ]; };
     NewItemPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -316,7 +320,8 @@ var NewItemPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"],
             _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-            _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"]])
+            _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]])
     ], NewItemPage);
     return NewItemPage;
 }());

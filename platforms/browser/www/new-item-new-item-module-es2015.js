@@ -146,7 +146,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let NewItemPage = class NewItemPage {
-    constructor(router, formBuilder, itemService, toastController, camera, actionSheet, file, route, location) {
+    constructor(router, formBuilder, itemService, toastController, camera, actionSheet, file, route, location, navController) {
         this.router = router;
         this.formBuilder = formBuilder;
         this.itemService = itemService;
@@ -156,6 +156,7 @@ let NewItemPage = class NewItemPage {
         this.file = file;
         this.route = route;
         this.location = location;
+        this.navController = navController;
         this.regex = "^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$";
     }
     pickImage(sourceType) {
@@ -234,7 +235,8 @@ let NewItemPage = class NewItemPage {
                 this.itemService.createPostNoImage(value.title, value.text, this.board);
                 this.new_post_form.reset();
                 this.presentToast();
-                this.router.navigate(['./home']);
+                this.navController.setDirection("back", true, "back");
+                this.location.back();
                 return;
             }
             let imgUrl;
@@ -249,6 +251,7 @@ let NewItemPage = class NewItemPage {
             this.new_post_form.reset();
             this.presentToast();
             // return to last page
+            this.navController.setDirection("back", true, "back");
             this.location.back();
         });
     }
@@ -262,7 +265,8 @@ NewItemPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"] },
     { type: _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
-    { type: _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"] }
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] }
 ];
 NewItemPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -278,7 +282,8 @@ NewItemPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"],
         _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"],
         _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-        _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"]])
+        _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]])
 ], NewItemPage);
 
 

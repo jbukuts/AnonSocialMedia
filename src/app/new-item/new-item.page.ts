@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController, ActionSheetController } from '@ionic/angular';
+import { ToastController, ActionSheetController, NavController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { v1 as uuidv1 } from 'uuid';
@@ -34,7 +34,8 @@ export class NewItemPage implements OnInit {
     public actionSheet : ActionSheetController,
     private file : File,
     private route : ActivatedRoute,
-    private location : Location 
+    private location : Location,
+    private navController : NavController
 
   ) { }
 
@@ -123,7 +124,8 @@ export class NewItemPage implements OnInit {
       this.itemService.createPostNoImage(value.title, value.text, this.board);
       this.new_post_form.reset();
       this.presentToast();
-      this.router.navigate(['./home']);
+      this.navController.setDirection("back", true, "back");
+      this.location.back();
       return;
     }
 
@@ -139,9 +141,10 @@ export class NewItemPage implements OnInit {
 
     this.itemService.createPost(value.title,value.text,imgUrl, this.board);
     this.new_post_form.reset();
-    this.presentToast()
+    this.presentToast();
 
     // return to last page
-    this.location.back()
+    this.navController.setDirection("back", true, "back");
+    this.location.back();
   }
 }

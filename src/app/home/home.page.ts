@@ -15,6 +15,8 @@ export class HomePage implements OnInit {
   // products for the product store
   posts;
 
+  board = 'random-post';
+
   constructor(
     private router: Router,
     public itemService: ItemService,
@@ -23,14 +25,14 @@ export class HomePage implements OnInit {
   ) {
     var self=this;
     events.subscribe('dataloaded', (time) => {
-      self.posts = self.itemService.getPosts('original-post');
+      self.posts = self.itemService.getPosts('random-post');
     });
     console.log(self.posts);
   }
 
   ngOnInit() {
     var self = this;
-    self.posts = self.itemService.getPosts('original-post');
+    self.posts = self.itemService.getPosts('random-post');
   }
 
   getTitle(title) {
@@ -40,12 +42,12 @@ export class HomePage implements OnInit {
   // go to the new item page
   directNewPost(){
     console.log("clicked new item");
-    let board = {'board' : 'original-post'};
+    let board = {'board' : 'random-post'};
     this.router.navigate(["/new-item",board]);
   }
 
   goToItem(post){
-    post['board'] = 'original-post';
+    post['board'] = 'random-post';
     console.log("displaying item info");
     console.log(post);
     this.router.navigate(["./product-detail",post]);

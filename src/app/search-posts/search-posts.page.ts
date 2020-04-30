@@ -12,7 +12,7 @@ import * as firebase from 'firebase';
 })
 export class SearchPostsPage implements OnInit {
 
-  private boards = ['original-post','art-post','media-post'];
+  private boards = ['original-post','random-post','media-post'];
 
   public posts: Array<any>;
   public filterPost: any

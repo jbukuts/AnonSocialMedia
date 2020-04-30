@@ -13,7 +13,7 @@ export class ArtBoardPage implements OnInit {
 
   // products for the product store
   posts;
-  board = 'art-post';
+  board = 'original-post';
 
   constructor(
     private router: Router,
