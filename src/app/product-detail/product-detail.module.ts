@@ -9,6 +9,7 @@ import { ProductDetailPageRoutingModule } from './product-detail-routing.module'
 import { ProductDetailPage } from './product-detail.page';
 
 import { ReplyModalPageModule } from '../reply-modal/reply-modal.module';
+import { ShowReplyModalPageModule } from '../show-reply-modal/show-reply-modal.module';
 import { ImageModalPageModule } from '../image-modal/image-modal.module';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ImageModalPageModule } from '../image-modal/image-modal.module';
     IonicModule,
     ProductDetailPageRoutingModule,
     ReplyModalPageModule,
-    ImageModalPageModule
+    ImageModalPageModule,
+    ShowReplyModalPageModule
   ],
   declarations: [ProductDetailPage]
 })

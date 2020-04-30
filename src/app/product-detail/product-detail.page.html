@@ -12,9 +12,10 @@
   <ion-item *ngIf="current_post" class="reply" lines="none">
     <ion-text>
       <h5 (click)="createReply(current_post)" class="postId">No. {{current_post.docId}}</h5>
-      <ion-img (click)="expandImg(current_post.img)" [src]="current_post.img"></ion-img>
+      <ion-img *ngIf="current_post.img" (click)="expandImg(current_post.img)" [src]="current_post.img"></ion-img>
       <p class="postTitle">{{current_post.title}}</p>
       <p class="postText">{{current_post.text}}</p>
+      <p class="postText">{{getDate(current_post.timestamp)}}</p>
     </ion-text>
   </ion-item>
 
@@ -23,8 +24,10 @@
    <ion-item *ngFor="let reply of post_replys" class="reply" lines="none">
      <ion-text>
        <h5 (click)="createReply(reply)" class="postId">No. {{reply.docId}}</h5>
+       <ion-img *ngIf="reply.img" (click)="expandImg(reply.img)" [src]="reply.img"></ion-img>
        <p class="postText">{{reply.text}}</p>
-       <p class="replyTo">Replying to : {{reply.replyTo}}</p>
+       <p (click)="showPost(reply)" class="replyTo">Replying to : {{reply.replyTo}}</p>
+       <p class="replyTo">{{getDate(reply.timestamp)}}</p>
      </ion-text>
    </ion-item>
 

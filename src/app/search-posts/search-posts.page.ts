@@ -39,6 +39,10 @@ export class SearchPostsPage implements OnInit {
     this.posts = this.itemService.filterPosts(this.searchTerm);
   }
 
+  getTitle(title) {
+    return (title.length > 15) ? title.substring(0,15)+"..." : title;
+  }
+
   goToItem(post){
     console.log("displaying item info");
     console.log(post);

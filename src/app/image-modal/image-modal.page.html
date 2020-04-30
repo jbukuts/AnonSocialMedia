@@ -4,15 +4,14 @@
     <ion-icon slot="icon-only" src="assets/icon/close-outline.svg"></ion-icon>
   </ion-button>
 
-  <ion-slides>
-    <ion-slide>
-      <div class="swiper-zoom-container">
-        <img src="{{img}}">
-      </div>
-    </ion-slide>
-  </ion-slides>
+  <div class="swiper-zoom-container">
+    <pinch-zoom backgroundColor="rgba(0,0,0,0)"> 
+      <img src="{{img}}">
+    </pinch-zoom>
+  </div>
+   
 
-  <ion-button fill="clear" download="img">
+  <ion-button id="saveButton" fill="clear" download="img">
     <ion-icon slot="icon-only" src="assets/icon/download-outline.svg"></ion-icon>
   </ion-button>
 

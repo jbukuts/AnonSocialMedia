@@ -1,0 +1,27 @@
+<ion-content>
+
+
+
+  <ion-card *ngIf="post">
+
+      <ion-toolbar>
+        <ion-title *ngIf="post">{{post.docId}}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="dismiss()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+
+      <ion-img *ngIf="post.img" [src]="post.img"></ion-img>
+
+    <ion-text>
+      <p id="title" *ngIf="post.title">{{post.title}}</p>
+      <p id="text">{{post.text}}</p>
+      <p id="timestamp" *ngIf="post.timestamp">Posted At {{getDate(post.timestamp)}}</p>
+    </ion-text>
+  </ion-card>
+  
+
+
+
+
+</ion-content>

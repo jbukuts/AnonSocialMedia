@@ -36,6 +36,45 @@ export class ItemService {
     return this.yourPost;
   }
 
+  private compareDate(a,b) {
+    return a - b;
+  }
+
+  public async getReplies(threadId) {
+    var curr = this;
+    let replies = [];
+    var db = firebase.firestore();
+
+    // get replies and order by timestamp
+    db.collection('original-post/'+threadId+'/replies').orderBy('timestamp').get().then( function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        var item = doc.data();
+        console.log(doc.data());
+        console.log(doc.ref.id);
+
+        var date = new Date(item.timestamp);
+        console.log((date.getMonth()+1)+ "/" + date.getDate() + "/" +date.getFullYear() +" "+date.getHours()+":"+("0"+date.getMinutes()).slice(-2));
+
+
+        // add item to the database
+        // ensure doc is there for deletion
+        replies.push({
+          replyTo : item.replyTo,
+          text : item.text,
+          timestamp : item.timestamp,
+          docId : doc.ref.id
+        });
+
+        // append image if needed
+        if (item.img != null) {
+          replies[replies.length-1]['img'] = item.img;
+        }
+      }
+    )});
+
+    return replies;
+  }
+
 
   // return the items
   public getPosts() {
@@ -49,22 +88,57 @@ export class ItemService {
         console.log(doc.data());
         console.log(doc.ref.id);
 
+        
         // add item to the database
         // ensure doc is there for deletion
         curr.posts.push({
-          number : item.number,
           text : item.text,
           title : item.title,
-          img : item.img,
+          timestamp: item.timestamp,
           docId : doc.ref.id
         });
+
+        // check to see if item has image
+        if (item.img != null) {
+          curr.posts[curr.posts.length-1]['img'] = item.img;
+        }
       }
     )});
     curr.events.publish('dataloaded',Date.now());
   }
 
 
-  // this will create a new item
+  // used to create post without image
+  public createPostNoImage(title,text) {
+    var self = this;
+
+    // add to db
+    var db = firebase.firestore();
+    db.collection("original-post").add({
+      title : title,
+      text : text,
+      timestamp : Date.now()
+    })
+    .then(function(docRef) {
+      console.log("Document written with ID",docRef.id);
+      // add to the post youve made
+      self.yourPost.push({
+        title : title,
+        text : text,
+        docId : docRef.id,
+        timestamp : Date.now()
+      });
+    })
+    .catch(function(error){
+      console.error("Error adding document: ",error);
+    });
+
+    // update list as item is now gone
+    this.events.publish('dataloaded',Date.now());
+    this.getPosts();
+  }
+
+  // this will create a new post with a picture
   public createPost(title,text,img) {
     var self = this;
 
@@ -73,8 +147,8 @@ export class ItemService {
     db.collection("original-post").add({
       title : title,
       text : text,
+      timestamp :  Date.now(),
       img : img,
-      number : 0
     })
     .then(function(docRef) {
       console.log("Document written with ID",docRef.id);
@@ -83,7 +157,7 @@ export class ItemService {
         title : title,
         text : text,
         img : img,
-        number : 0,
+        timestamp : Date.now(),
         docId : docRef.id
       });
     })
@@ -110,6 +184,11 @@ export class ItemService {
 
   filterPosts(searchTerm) {
     console.log("filtering: " + searchTerm);
+
+    if (searchTerm == "") {
+      return this.posts;
+    }
+
     return this.posts.filter(post => {
       return post.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });
