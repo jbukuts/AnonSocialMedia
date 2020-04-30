@@ -3,6 +3,10 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import * as firebase from 'firebase';
+import { ItemService } from './item.service';
+import { Events } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+
 
 // Your web app's Firebase configuration
 // yay persistent storage
@@ -25,19 +29,35 @@ var firebaseConfig = {
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home Page',
+      title: 'Random',
       url: '/home',
-      icon: 'home'
+      icon: 'home',
+      board: 'original-post'
     },
+    {
+      title: 'Art',
+      url: '/art-board',
+      icon: 'brush',
+      board: 'art-post'
+    },
+    {
+      title: 'Media',
+      url: '/media-board',
+      icon: 'videocam',
+      board: 'media-post'
+    },
+    {
+      title: 'Search All Posts',
+      url: '/search-posts',
+      icon: 'search'
+    }
+  ];
+
+  public yourStuff = [
     {
       title: 'Your Posts',
       url: '/your-posts',
       icon: 'list'
-    },
-    {
-      title: 'Search Posts',
-      url: '/search-posts',
-      icon: 'search'
     },
     {
       title: 'Settings',
@@ -46,29 +66,46 @@ export class AppComponent {
     }
   ];
 
+  public boards = {
+    'original-post' : 0,
+    'art-post': 0,
+    'media-post' : 0
+  };
+
+  getPostAmount(board) {
+    var self = this;
+    return self.boards[board];
+  }
+
+  private itemService : ItemService;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    public events: Events, 
+    public toastController: ToastController
   ) {
     this.initializeApp();
   }
 
-  initializeApp() {
+  async initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
+      var self = this;
+
       // initalize conncetion to db
       firebase.initializeApp(firebaseConfig);
+      this.itemService = new ItemService(this.events,this.toastController);
 
-      var ref = firebase.database().ref("storeItems");
-      ref.orderByChild("name").equalTo("sandwich").on("child_added", function(snapshot) {
-        console.log(snapshot.key);
-      });
-      console.log('test');
-
-
+      for (var key in self.boards) {
+        firebase.firestore().collection(key).get().then(function(querySnapshot) {
+          self.boards[key] = querySnapshot.size;
+          console.log(self.boards[key]);
+        });
+      }
     });
   }
 }

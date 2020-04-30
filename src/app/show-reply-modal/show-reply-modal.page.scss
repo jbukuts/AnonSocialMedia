@@ -13,7 +13,8 @@ ion-card {
 }
 
 ion-img {
-    border-radius: 20%;
+    border-radius: 5%;
+    overflow: hidden;
     width: 80%;
     margin: auto
 }
@@ -33,6 +34,5 @@ ion-img {
 
 #timestamp {
     font-size: 12px;
-    color: #8a2173;
     margin-left: 10px;
 }

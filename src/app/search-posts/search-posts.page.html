@@ -13,7 +13,7 @@
     (ionChange)="setFilteredPosts()"
   ></ion-searchbar>
 
-  <ion-list lines="none" *ngFor="let p of posts" style="margin-bottom: 2px; margin-top: 2px;">
+  <ion-list lines="none" *ngFor="let p of filterPost" style="margin-bottom: 2px; margin-top: 2px;">
     <ion-item (click)="goToItem(p)" style="margin: auto; border-radius: 10px; width: 95%;" color="tertiary" >
       <ion-thumbnail *ngIf="p.img" slot="start">
         <ion-img [src]="p.img" style="border-radius: 50%"></ion-img>

@@ -29,7 +29,7 @@ export class ProductDetailPage implements OnInit {
   ) {
     var self=this;
     events.subscribe('replychange', async (time) => {
-      self.post_replys = await self.getReplys(self.current_post.docId);
+      self.post_replys = await self.getReplys(self.current_post.docId,self.current_post.board);
       // user and time are the same arguments passed in `events.publish(user, time)`
       console.log('data reloading  time:', time);
       console.log(self.post_replys);
@@ -66,7 +66,7 @@ export class ProductDetailPage implements OnInit {
       async param => {
         this.current_post = param;
         console.log(this.current_post);
-        this.post_replys = await this.getReplys(this.current_post.docId);
+        this.post_replys = await this.getReplys(this.current_post.docId, this.current_post.board);
         console.log(this.post_replys);
       }
     );
@@ -79,13 +79,13 @@ export class ProductDetailPage implements OnInit {
   }
 
   // this will get the post 
-  async getReplys(postId) {
+  async getReplys(postId, board) {
     let replys = [];
     let self = this;
-    await self.presentLoading();
+    //await self.presentLoading();
     console.log("GETTING REPLYS FOR "+postId+"!");
-    replys = await this.itemService.getReplies(postId);
-    await self.dismissLoading();
+    replys = await this.itemService.getReplies(postId,board);
+    //await self.dismissLoading();
     return replys;
   }
 
@@ -138,9 +138,9 @@ export class ProductDetailPage implements OnInit {
     const modal = await this.modalController.create({
       component: ReplyModalPage,
       componentProps: {
-        'replyTo': post.docId,
-        'text' : post.text,
-        'originalPost' : this.current_post.docId
+        'post' : post,
+        'originalPost' : this.current_post.docId,
+        'board' : this.current_post.board
       }
     });
     

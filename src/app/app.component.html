@@ -3,22 +3,48 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-header>
         <ion-toolbar>
-          <ion-title>Menu</ion-title>
+          <ion-title style="color: black;">Menu</ion-title>
         </ion-toolbar>
       </ion-header>
+
       <ion-content>
-        <ion-list>
+        <ion-item lines="none" style="font-size: 14px; --min-height: 25px; font-weight: bold;">Boards</ion-item>
+        <ion-toolbar class="menu-sections" color="primary"></ion-toolbar>
+
+        <ion-list style="margin-bottom: 0px;">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines=none>
+              <ion-icon slot="start" [name]="p.icon" color="dark"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+
+              <!--<ion-badge *ngIf="p.board" color="primary">{{getPostAmount(p.board)}}</ion-badge>-->
+
+            </ion-item>
+          </ion-menu-toggle>        
+        </ion-list>
+        
+        <ion-item lines="none" style="font-size: 14px; --min-height: 25px; font-weight: bold;">Other Stuff</ion-item>
+        <ion-toolbar class="menu-sections" color="primary"></ion-toolbar>
+        <ion-list style="margin-bottom: 0px;">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of yourStuff">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines=none>
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
               </ion-label>
             </ion-item>
-          </ion-menu-toggle>
+          </ion-menu-toggle>        
         </ion-list>
+        
       </ion-content>
+      <ion-item lines=none style="font-size: 12px; margin: auto;">version 4.29.20</ion-item>
     </ion-menu>
+
+    
+
+
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

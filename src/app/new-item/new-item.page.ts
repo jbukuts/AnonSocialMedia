@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController, ActionSheetController } from '@ionic/angular';
+import { ToastController, ActionSheetController, NavController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { v1 as uuidv1 } from 'uuid';
 import * as firebase from 'firebase';
-
-
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { ItemService } from '../item.service';
 
@@ -19,6 +19,7 @@ import { ItemService } from '../item.service';
 export class NewItemPage implements OnInit {
 
   imgFile;
+  board;
 
   
   new_post_form: FormGroup;
@@ -32,6 +33,9 @@ export class NewItemPage implements OnInit {
     private camera: Camera,
     public actionSheet : ActionSheetController,
     private file : File,
+    private route : ActivatedRoute,
+    private location : Location,
+    private navController : NavController
 
   ) { }
 
@@ -91,6 +95,15 @@ export class NewItemPage implements OnInit {
   }
 
   ngOnInit() {
+
+    // we need to get the board to post the thread to
+    this.route.params.subscribe(
+      async param => {
+        this.board = param.board;
+        console.log(this.board);
+      }
+    );
+
     this.new_post_form = this.formBuilder.group({
       title: new FormControl('',Validators.required),
       text: new FormControl('',Validators.required),
@@ -108,10 +121,11 @@ export class NewItemPage implements OnInit {
 
 
     if (this.imgFile == null) {
-      this.itemService.createPostNoImage(value.title, value.text);
+      this.itemService.createPostNoImage(value.title, value.text, this.board);
       this.new_post_form.reset();
       this.presentToast();
-      this.router.navigate(['./home']);
+      this.navController.setDirection("back", true, "back");
+      this.location.back();
       return;
     }
 
@@ -125,11 +139,12 @@ export class NewItemPage implements OnInit {
       imgUrl = downloadURL;
     }); 
 
-    this.itemService.createPost(value.title,value.text,imgUrl);
+    this.itemService.createPost(value.title,value.text,imgUrl, this.board);
     this.new_post_form.reset();
-    this.presentToast()
+    this.presentToast();
 
-    // return to home page
-    this.router.navigate(['./home']);
+    // return to last page
+    this.navController.setDirection("back", true, "back");
+    this.location.back();
   }
 }

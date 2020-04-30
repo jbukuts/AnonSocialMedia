@@ -441,7 +441,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu contentId=\"main-content\" type=\"overlay\">\n      <ion-header>\n        <ion-toolbar>\n          <ion-title>Menu</ion-title>\n        </ion-toolbar>\n      </ion-header>\n      <ion-content>\n        <ion-list>\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\n            <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\n              <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\n              <ion-label>\n                {{p.title}}\n              </ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n"
+module.exports = "<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu contentId=\"main-content\" type=\"overlay\">\n      <ion-header>\n        <ion-toolbar>\n          <ion-title>Menu</ion-title>\n        </ion-toolbar>\n      </ion-header>\n\n      <ion-content>\n        <ion-item lines=\"none\" style=\"font-size: 14px; --min-height: 25px; font-weight: bold;\">Boards</ion-item>\n        <ion-toolbar class=\"menu-sections\" color=\"primary\"></ion-toolbar>\n\n        <ion-list style=\"margin-bottom: 0px;\">\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\n            <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\" lines=none>\n              <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\n              <ion-label>\n                {{p.title}}\n              </ion-label>\n\n              <!--<ion-badge *ngIf=\"p.board\" color=\"primary\">{{getPostAmount(p.board)}}</ion-badge>-->\n\n            </ion-item>\n          </ion-menu-toggle>        \n        </ion-list>\n        \n        <ion-item lines=\"none\" style=\"font-size: 14px; --min-height: 25px; font-weight: bold;\">Other Stuff</ion-item>\n        <ion-toolbar class=\"menu-sections\" color=\"primary\"></ion-toolbar>\n        <ion-list style=\"margin-bottom: 0px;\">\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of yourStuff\">\n            <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\" lines=none>\n              <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\n              <ion-label>\n                {{p.title}}\n              </ion-label>\n            </ion-item>\n          </ion-menu-toggle>        \n        </ion-list>\n        \n      </ion-content>\n      <ion-item lines=none style=\"font-size: 12px; margin: auto;\">version 4.29.20</ion-item>\n    </ion-menu>\n\n    \n\n\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n"
 
 /***/ }),
 
@@ -478,7 +478,7 @@ const routes = [
     },
     {
         path: 'product-detail',
-        loadChildren: () => Promise.all(/*! import() | product-detail-product-detail-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("common"), __webpack_require__.e("product-detail-product-detail-module")]).then(__webpack_require__.bind(null, /*! ./product-detail/product-detail.module */ "./src/app/product-detail/product-detail.module.ts")).then(m => m.ProductDetailPageModule)
+        loadChildren: () => Promise.all(/*! import() | product-detail-product-detail-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("default~image-modal-image-modal-module~product-detail-product-detail-module"), __webpack_require__.e("default~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("common"), __webpack_require__.e("product-detail-product-detail-module")]).then(__webpack_require__.bind(null, /*! ./product-detail/product-detail.module */ "./src/app/product-detail/product-detail.module.ts")).then(m => m.ProductDetailPageModule)
     },
     {
         path: 'order-detail',
@@ -486,11 +486,11 @@ const routes = [
     },
     {
         path: 'reply-modal',
-        loadChildren: () => Promise.all(/*! import() | reply-modal-reply-modal-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("common")]).then(__webpack_require__.bind(null, /*! ./reply-modal/reply-modal.module */ "./src/app/reply-modal/reply-modal.module.ts")).then(m => m.ReplyModalPageModule)
+        loadChildren: () => Promise.all(/*! import() | reply-modal-reply-modal-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("default~product-detail-product-detail-module~reply-modal-reply-modal-module")]).then(__webpack_require__.bind(null, /*! ./reply-modal/reply-modal.module */ "./src/app/reply-modal/reply-modal.module.ts")).then(m => m.ReplyModalPageModule)
     },
     {
         path: 'image-modal',
-        loadChildren: () => __webpack_require__.e(/*! import() | image-modal-image-modal-module */ "common").then(__webpack_require__.bind(null, /*! ./image-modal/image-modal.module */ "./src/app/image-modal/image-modal.module.ts")).then(m => m.ImageModalPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() | image-modal-image-modal-module */ "default~image-modal-image-modal-module~product-detail-product-detail-module").then(__webpack_require__.bind(null, /*! ./image-modal/image-modal.module */ "./src/app/image-modal/image-modal.module.ts")).then(m => m.ImageModalPageModule)
     },
     {
         path: 'settings',
@@ -514,7 +514,15 @@ const routes = [
     },
     {
         path: 'show-reply-modal',
-        loadChildren: () => Promise.all(/*! import() | show-reply-modal-show-reply-modal-module */[__webpack_require__.e("common"), __webpack_require__.e("show-reply-modal-show-reply-modal-module")]).then(__webpack_require__.bind(null, /*! ./show-reply-modal/show-reply-modal.module */ "./src/app/show-reply-modal/show-reply-modal.module.ts")).then(m => m.ShowReplyModalPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() | show-reply-modal-show-reply-modal-module */ "common").then(__webpack_require__.bind(null, /*! ./show-reply-modal/show-reply-modal.module */ "./src/app/show-reply-modal/show-reply-modal.module.ts")).then(m => m.ShowReplyModalPageModule)
+    },
+    {
+        path: 'art-board',
+        loadChildren: () => __webpack_require__.e(/*! import() | art-board-art-board-module */ "art-board-art-board-module").then(__webpack_require__.bind(null, /*! ./art-board/art-board.module */ "./src/app/art-board/art-board.module.ts")).then(m => m.ArtBoardPageModule)
+    },
+    {
+        path: 'media-board',
+        loadChildren: () => __webpack_require__.e(/*! import() | media-board-media-board-module */ "media-board-media-board-module").then(__webpack_require__.bind(null, /*! ./media-board/media-board.module */ "./src/app/media-board/media-board.module.ts")).then(m => m.MediaBoardPageModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -539,7 +547,7 @@ AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = ".menu-sections {\n  height: 2px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pidWt1dHMvRG9jdW1lbnRzL0dpdGh1Yi9Bbm9uU29jaWFsTWVkaWEvc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tZW51LXNlY3Rpb25zIHtcbiAgICBoZWlnaHQ6IDJweDtcbn0iLCIubWVudS1zZWN0aW9ucyB7XG4gIGhlaWdodDogMnB4O1xufSJdfQ== */"
 
 /***/ }),
 
@@ -560,6 +568,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _item_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./item.service */ "./src/app/item.service.ts");
+
+
+
 
 
 
@@ -579,25 +591,42 @@ var firebaseConfig = {
     measurementId: "G-5BD5ZV7PRG"
 };
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar) {
+    constructor(platform, splashScreen, statusBar, events, toastController) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
+        this.events = events;
+        this.toastController = toastController;
         this.appPages = [
             {
-                title: 'Home Page',
+                title: 'Random',
                 url: '/home',
-                icon: 'home'
+                icon: 'home',
+                board: 'original-post'
             },
+            {
+                title: 'Art',
+                url: '/art-board',
+                icon: 'brush',
+                board: 'art-post'
+            },
+            {
+                title: 'Media',
+                url: '/media-board',
+                icon: 'videocam',
+                board: 'media-post'
+            },
+            {
+                title: 'Search All Posts',
+                url: '/search-posts',
+                icon: 'search'
+            }
+        ];
+        this.yourStuff = [
             {
                 title: 'Your Posts',
                 url: '/your-posts',
                 icon: 'list'
-            },
-            {
-                title: 'Search Posts',
-                url: '/search-posts',
-                icon: 'search'
             },
             {
                 title: 'Settings',
@@ -605,26 +634,42 @@ let AppComponent = class AppComponent {
                 icon: 'settings'
             }
         ];
+        this.boards = {
+            'original-post': 0,
+            'art-post': 0,
+            'media-post': 0
+        };
         this.initializeApp();
     }
+    getPostAmount(board) {
+        var self = this;
+        return self.boards[board];
+    }
     initializeApp() {
-        this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
-            // initalize conncetion to db
-            firebase__WEBPACK_IMPORTED_MODULE_5__["initializeApp"](firebaseConfig);
-            var ref = firebase__WEBPACK_IMPORTED_MODULE_5__["database"]().ref("storeItems");
-            ref.orderByChild("name").equalTo("sandwich").on("child_added", function (snapshot) {
-                console.log(snapshot.key);
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.platform.ready().then(() => {
+                this.statusBar.styleDefault();
+                this.splashScreen.hide();
+                var self = this;
+                // initalize conncetion to db
+                firebase__WEBPACK_IMPORTED_MODULE_5__["initializeApp"](firebaseConfig);
+                this.itemService = new _item_service__WEBPACK_IMPORTED_MODULE_6__["ItemService"](this.events, this.toastController);
+                for (var key in self.boards) {
+                    firebase__WEBPACK_IMPORTED_MODULE_5__["firestore"]().collection(key).get().then(function (querySnapshot) {
+                        self.boards[key] = querySnapshot.size;
+                        console.log(self.boards[key]);
+                    });
+                }
             });
-            console.log('test');
         });
     }
 };
 AppComponent.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
     { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"] },
-    { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"] }
+    { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
 ];
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -634,7 +679,9 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
         _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"],
-        _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"]])
+        _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
 ], AppComponent);
 
 
@@ -695,6 +742,177 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     })
 ], AppModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/item.service.ts":
+/*!*********************************!*\
+  !*** ./src/app/item.service.ts ***!
+  \*********************************/
+/*! exports provided: ItemService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ItemService", function() { return ItemService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+let ItemService = class ItemService {
+    constructor(events, toastController) {
+        this.events = events;
+        this.toastController = toastController;
+        this.ref = firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('original-post/');
+        // this will represent the post you have made
+        this.yourPost = new Array();
+    }
+    getYourPosts() {
+        return this.yourPost;
+    }
+    getReplies(threadId, board) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            var curr = this;
+            let replies = [];
+            var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
+            // get replies and order by timestamp
+            db.collection(board + '/' + threadId + '/replies').orderBy('timestamp').get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    var item = doc.data();
+                    console.log(doc.data());
+                    console.log(doc.ref.id);
+                    var date = new Date(item.timestamp);
+                    console.log((date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + ("0" + date.getMinutes()).slice(-2));
+                    // add item to the database
+                    // ensure doc is there for deletion
+                    replies.push({
+                        replyTo: item.replyTo,
+                        text: item.text,
+                        timestamp: item.timestamp,
+                        docId: doc.ref.id
+                    });
+                    // append image if needed
+                    if (item.img != null) {
+                        replies[replies.length - 1]['img'] = item.img;
+                    }
+                });
+            });
+            return replies;
+        });
+    }
+    // return the items
+    getPosts(collectionName) {
+        let postList = [];
+        let db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
+        db.collection(collectionName).orderBy('timestamp', 'desc').get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                var item = doc.data();
+                //console.log(doc.data());
+                //console.log(doc.ref.id);
+                // add item to the database
+                // ensure doc is there for deletion
+                postList.push({
+                    text: item.text,
+                    title: item.title,
+                    timestamp: item.timestamp,
+                    docId: doc.ref.id
+                });
+                // check to see if item has image
+                if (item.img != null) {
+                    postList[postList.length - 1]['img'] = item.img;
+                }
+            });
+        });
+        return postList;
+    }
+    // used to create post without image
+    createPostNoImage(title, text, board) {
+        var self = this;
+        // add to db
+        var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
+        db.collection(board).add({
+            title: title,
+            text: text,
+            timestamp: Date.now()
+        })
+            .then(function (docRef) {
+            console.log("Document written with ID", docRef.id);
+            // add to the post youve made
+            self.yourPost.push({
+                title: title,
+                text: text,
+                docId: docRef.id,
+                timestamp: Date.now(),
+                board: board
+            });
+        })
+            .catch(function (error) {
+            console.error("Error adding document: ", error);
+        });
+        // update list as item is now gone
+        this.events.publish('dataloaded', Date.now());
+        ;
+    }
+    // this will create a new post with a picture
+    createPost(title, text, img, board) {
+        var self = this;
+        // add to db
+        var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
+        db.collection(board).add({
+            title: title,
+            text: text,
+            timestamp: Date.now(),
+            img: img,
+        })
+            .then(function (docRef) {
+            console.log("Document written with ID", docRef.id);
+            // add to the post youve made
+            self.yourPost.push({
+                title: title,
+                text: text,
+                img: img,
+                timestamp: Date.now(),
+                docId: docRef.id,
+                board: board
+            });
+        })
+            .catch(function (error) {
+            console.error("Error adding document: ", error);
+        });
+        // update list as item is now gone
+        this.events.publish('dataloaded', Date.now());
+    }
+    // displays message telling user that new item was added
+    presentToast(message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const toast = yield this.toastController.create({
+                color: 'dark',
+                message: message,
+                duration: 2000,
+                showCloseButton: true
+            });
+            toast.present();
+        });
+    }
+};
+ItemService.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
+];
+ItemService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+], ItemService);
 
 
 

@@ -12,31 +12,60 @@ import * as firebase from 'firebase';
 })
 export class SearchPostsPage implements OnInit {
 
-  public posts: any;
+  private boards = ['original-post','random-post','media-post'];
+
+  public posts: Array<any>;
+  public filterPost: any
   searchTerm: string = "";
 
   constructor(
     private router: Router,
     public itemService: ItemService,
     public events: Events,
-  ) { 
-    var self=this;
-    events.subscribe('dataloaded', (time) => {
-      self.posts = [];
-      self.posts = self.itemService.posts;
-      // user and time are the same arguments passed in `events.publish(user, time)`
-      console.log('data reloading  time:', time);
-      console.log(self.posts);
-    });
-    self.itemService.getPosts();
+  ) {
   }
 
-  ngOnInit() {
-    this.setFilteredPosts();
+  async ngOnInit() {
+    var self = this;
+    self.posts = new Array();
+    let db = firebase.firestore();
+
+    // get all post from all boards
+    for (let b of self.boards) {
+      db.collection(b).get().then( function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          var item = doc.data();
+          
+          self.posts.push({
+            text : item.text,
+            title : item.title,
+            timestamp: item.timestamp,
+            docId : doc.ref.id,
+            board : b
+          });
+  
+          // check to see if item has image
+          if (item.img != null) {
+            self.posts[self.posts.length-1]['img'] = item.img;
+          }
+        }
+      )});
+    }
+
+    console.log(self.posts);
+    self.filterPost = self.posts;
   }
 
   setFilteredPosts() {
-    this.posts = this.itemService.filterPosts(this.searchTerm);
+    console.log("filtering: " + this.searchTerm);
+
+    if (this.searchTerm == "") {
+      this.filterPost = this.posts;
+    }
+
+    this.filterPost = this.posts.filter(post => {
+      return post.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    });
   }
 
   getTitle(title) {

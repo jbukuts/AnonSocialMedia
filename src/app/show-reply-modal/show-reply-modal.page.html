@@ -16,7 +16,7 @@
     <ion-text>
       <p id="title" *ngIf="post.title">{{post.title}}</p>
       <p id="text">{{post.text}}</p>
-      <p id="timestamp" *ngIf="post.timestamp">Posted At {{getDate(post.timestamp)}}</p>
+      <p id="timestamp" color="primary" *ngIf="post.timestamp">Posted At {{getDate(post.timestamp)}}</p>
     </ion-text>
   </ion-card>
   
