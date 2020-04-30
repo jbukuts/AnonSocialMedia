@@ -82,8 +82,8 @@ var ItemService = /** @class */ (function () {
         db.collection(collectionName).get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var item = doc.data();
-                console.log(doc.data());
-                console.log(doc.ref.id);
+                //console.log(doc.data());
+                //console.log(doc.ref.id);
                 // add item to the database
                 // ensure doc is there for deletion
                 postList.push({
@@ -315,8 +315,29 @@ var SearchPostsPage = /** @class */ (function () {
         this.router = router;
         this.itemService = itemService;
         this.events = events;
+        this.boards = ['original-post', 'art-post'];
         this.searchTerm = "";
     }
+    SearchPostsPage.prototype.mergePost = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var m, _i, _a, b, l, i;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+                m = new Array();
+                for (_i = 0, _a = this.boards; _i < _a.length; _i++) {
+                    b = _a[_i];
+                    l = this.itemService.getPosts(b);
+                    console.log(l.length);
+                    console.log(l);
+                    for (i = 0; i < l.length; i++) {
+                        console.log(l[i]);
+                        m.push(l[i]);
+                    }
+                }
+                console.log(m);
+                return [2 /*return*/, m];
+            });
+        });
+    };
     SearchPostsPage.prototype.ngOnInit = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var self, _a;
@@ -325,9 +346,10 @@ var SearchPostsPage = /** @class */ (function () {
                     case 0:
                         self = this;
                         _a = self;
-                        return [4 /*yield*/, self.itemService.getPosts('original-post')];
+                        return [4 /*yield*/, self.mergePost()];
                     case 1:
                         _a.posts = _b.sent();
+                        console.log(self.posts);
                         self.filterPost = self.posts;
                         return [2 /*return*/];
                 }

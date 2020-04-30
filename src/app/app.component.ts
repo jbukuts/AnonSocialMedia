@@ -25,9 +25,19 @@ var firebaseConfig = {
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home Page',
+      title: 'Random',
       url: '/home',
       icon: 'home'
+    },
+    {
+      title: 'Art',
+      url: '/art-board',
+      icon: 'brush'
+    },
+    {
+      title: 'Media',
+      url: '/media-board',
+      icon: 'videocam'
     },
     {
       title: 'Your Posts',

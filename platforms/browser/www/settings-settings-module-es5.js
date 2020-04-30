@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar color=\"secondary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Settings</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-item button (click)=\"routeTo('./change-theme')\">\n    <ion-icon slot=\"start\" src=\"/assets/icon/color-palette-outline.svg\"></ion-icon>\n    <ion-label>\n      Change Theme\n    </ion-label>\n  </ion-item>\n\n  <ion-item button (click)=\"routeTo('./app-info')\">\n    <ion-icon slot=\"start\" name=\"information-circle-outline\"></ion-icon>\n    <ion-label>\n      About App\n    </ion-label>\n  </ion-item>\n\n  <ion-item (click)=\"clearPosts()\" lines=none>\n    <ion-label color=\"danger\" style=\"text-align: center;\">\n      Clear Your Posts\n    </ion-label>\n  </ion-item>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar color=\"secondary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Settings</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-item button (click)=\"routeTo('./change-theme')\">\n    <ion-icon slot=\"start\" src=\"/assets/icon/color-palette-outline.svg\"></ion-icon>\n    <ion-label>\n      Change Theme\n    </ion-label>\n  </ion-item>\n\n  <ion-item button (click)=\"routeTo('./app-info')\">\n    <ion-icon slot=\"start\" name=\"information-circle-outline\"></ion-icon>\n    <ion-label>\n      About App\n    </ion-label>\n  </ion-item>\n\n  <ion-item (click)=\"presentAlertConfirm()\" lines=none>\n    <ion-label color=\"danger\" style=\"text-align: center;\">\n      Clear Your Posts\n    </ion-label>\n  </ion-item>\n</ion-content>\n"
 
 /***/ }),
 
@@ -82,8 +82,8 @@ var ItemService = /** @class */ (function () {
         db.collection(collectionName).get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var item = doc.data();
-                console.log(doc.data());
-                console.log(doc.ref.id);
+                //console.log(doc.data());
+                //console.log(doc.ref.id);
                 // add item to the database
                 // ensure doc is there for deletion
                 postList.push({
@@ -322,47 +322,39 @@ var SettingsPage = /** @class */ (function () {
     SettingsPage.prototype.routeTo = function (route) {
         this.router.navigate([route]);
     };
-    SettingsPage.prototype.clearPosts = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log("Clearing your posts!");
-                        return [4 /*yield*/, this.presentAlertConfirm];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     SettingsPage.prototype.presentAlertConfirm = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var alert;
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.alertController.create({
-                            header: 'Confirm!',
-                            message: 'Message <strong>text</strong>!!!',
-                            buttons: [
-                                {
-                                    text: 'Cancel',
-                                    role: 'cancel',
-                                    cssClass: 'secondary',
-                                    handler: function (blah) {
-                                        console.log('Confirm Cancel: blah');
+                    case 0:
+                        if (this.itemService.yourPost.length == 0) {
+                            this.itemService.presentToast("There's nothing to clear!");
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, this.alertController.create({
+                                header: 'Clear Posts Locally',
+                                message: 'You sure about this?',
+                                buttons: [
+                                    {
+                                        text: 'No',
+                                        role: 'cancel',
+                                        cssClass: 'secondary',
+                                        handler: function (blah) {
+                                            console.log('Confirm Cancel: blah');
+                                        }
+                                    }, {
+                                        text: 'Yes',
+                                        handler: function () {
+                                            console.log('Confirm Okay');
+                                            var length = _this.itemService.yourPost.length;
+                                            _this.itemService.yourPost = [];
+                                            _this.itemService.presentToast("You cleared " + length + " posts");
+                                        }
                                     }
-                                }, {
-                                    text: 'Okay',
-                                    handler: function () {
-                                        console.log('Confirm Okay');
-                                        _this.itemService.yourPost = [];
-                                        _this.itemService.presentToast("Your posts have been cleared");
-                                    }
-                                }
-                            ]
-                        })];
+                                ]
+                            })];
                     case 1:
                         alert = _a.sent();
                         return [4 /*yield*/, alert.present()];

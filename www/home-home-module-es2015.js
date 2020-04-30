@@ -121,18 +121,6 @@ let HomePage = class HomePage {
         console.log(post);
         this.router.navigate(["./product-detail", post]);
     }
-    // displays message telling user that new item was added
-    presentToast(message) {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const toast = yield this.toastController.create({
-                color: 'dark',
-                message: message,
-                duration: 2000,
-                showCloseButton: true
-            });
-            toast.present();
-        });
-    }
 };
 HomePage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
@@ -224,8 +212,8 @@ let ItemService = class ItemService {
         db.collection(collectionName).get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var item = doc.data();
-                console.log(doc.data());
-                console.log(doc.ref.id);
+                //console.log(doc.data());
+                //console.log(doc.ref.id);
                 // add item to the database
                 // ensure doc is there for deletion
                 postList.push({

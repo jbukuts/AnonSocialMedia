@@ -49,17 +49,5 @@ export class HomePage implements OnInit {
     console.log("displaying item info");
     console.log(post);
     this.router.navigate(["./product-detail",post]);
-  }
-
-  // displays message telling user that new item was added
-  async presentToast(message) {
-    const toast = await this.toastController.create({
-      color: 'dark',
-      message: message,
-      duration: 2000,
-      showCloseButton: true
-    });
-    toast.present();
-  }
-  
+  } 
 }

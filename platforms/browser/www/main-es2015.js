@@ -515,6 +515,10 @@ const routes = [
     {
         path: 'show-reply-modal',
         loadChildren: () => Promise.all(/*! import() | show-reply-modal-show-reply-modal-module */[__webpack_require__.e("common"), __webpack_require__.e("show-reply-modal-show-reply-modal-module")]).then(__webpack_require__.bind(null, /*! ./show-reply-modal/show-reply-modal.module */ "./src/app/show-reply-modal/show-reply-modal.module.ts")).then(m => m.ShowReplyModalPageModule)
+    },
+    {
+        path: 'art-board',
+        loadChildren: () => __webpack_require__.e(/*! import() | art-board-art-board-module */ "art-board-art-board-module").then(__webpack_require__.bind(null, /*! ./art-board/art-board.module */ "./src/app/art-board/art-board.module.ts")).then(m => m.ArtBoardPageModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -585,9 +589,19 @@ let AppComponent = class AppComponent {
         this.statusBar = statusBar;
         this.appPages = [
             {
-                title: 'Home Page',
+                title: 'Random',
                 url: '/home',
                 icon: 'home'
+            },
+            {
+                title: 'Art',
+                url: '/art-board',
+                icon: 'brush'
+            },
+            {
+                title: 'Media',
+                url: '/media-board',
+                icon: 'videocam'
             },
             {
                 title: 'Your Posts',

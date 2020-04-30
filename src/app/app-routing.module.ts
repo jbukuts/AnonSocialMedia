@@ -55,6 +55,14 @@ const routes: Routes = [
   {
     path: 'show-reply-modal',
     loadChildren: () => import('./show-reply-modal/show-reply-modal.module').then( m => m.ShowReplyModalPageModule)
+  },
+  {
+    path: 'art-board',
+    loadChildren: () => import('./art-board/art-board.module').then( m => m.ArtBoardPageModule)
+  },
+  {
+    path: 'media-board',
+    loadChildren: () => import('./media-board/media-board.module').then( m => m.MediaBoardPageModule)
   }
 ];
 

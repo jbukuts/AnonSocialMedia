@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar color=\"secondary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Settings</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-item button (click)=\"routeTo('./change-theme')\">\n    <ion-icon slot=\"start\" src=\"/assets/icon/color-palette-outline.svg\"></ion-icon>\n    <ion-label>\n      Change Theme\n    </ion-label>\n  </ion-item>\n\n  <ion-item button (click)=\"routeTo('./app-info')\">\n    <ion-icon slot=\"start\" name=\"information-circle-outline\"></ion-icon>\n    <ion-label>\n      About App\n    </ion-label>\n  </ion-item>\n\n  <ion-item (click)=\"clearPosts()\" lines=none>\n    <ion-label color=\"danger\" style=\"text-align: center;\">\n      Clear Your Posts\n    </ion-label>\n  </ion-item>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar color=\"secondary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Settings</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-item button (click)=\"routeTo('./change-theme')\">\n    <ion-icon slot=\"start\" src=\"/assets/icon/color-palette-outline.svg\"></ion-icon>\n    <ion-label>\n      Change Theme\n    </ion-label>\n  </ion-item>\n\n  <ion-item button (click)=\"routeTo('./app-info')\">\n    <ion-icon slot=\"start\" name=\"information-circle-outline\"></ion-icon>\n    <ion-label>\n      About App\n    </ion-label>\n  </ion-item>\n\n  <ion-item (click)=\"presentAlertConfirm()\" lines=none>\n    <ion-label color=\"danger\" style=\"text-align: center;\">\n      Clear Your Posts\n    </ion-label>\n  </ion-item>\n</ion-content>\n"
 
 /***/ }),
 
@@ -79,8 +79,8 @@ let ItemService = class ItemService {
         db.collection(collectionName).get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var item = doc.data();
-                console.log(doc.data());
-                console.log(doc.ref.id);
+                //console.log(doc.data());
+                //console.log(doc.ref.id);
                 // add item to the database
                 // ensure doc is there for deletion
                 postList.push({
@@ -304,31 +304,30 @@ let SettingsPage = class SettingsPage {
     routeTo(route) {
         this.router.navigate([route]);
     }
-    clearPosts() {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            console.log("Clearing your posts!");
-            yield this.presentAlertConfirm;
-        });
-    }
     presentAlertConfirm() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (this.itemService.yourPost.length == 0) {
+                this.itemService.presentToast("There's nothing to clear!");
+                return;
+            }
             const alert = yield this.alertController.create({
-                header: 'Confirm!',
-                message: 'Message <strong>text</strong>!!!',
+                header: 'Clear Posts Locally',
+                message: 'You sure about this?',
                 buttons: [
                     {
-                        text: 'Cancel',
+                        text: 'No',
                         role: 'cancel',
                         cssClass: 'secondary',
                         handler: (blah) => {
                             console.log('Confirm Cancel: blah');
                         }
                     }, {
-                        text: 'Okay',
+                        text: 'Yes',
                         handler: () => {
                             console.log('Confirm Okay');
+                            let length = this.itemService.yourPost.length;
                             this.itemService.yourPost = [];
-                            this.itemService.presentToast("Your posts have been cleared");
+                            this.itemService.presentToast("You cleared " + length + " posts");
                         }
                     }
                 ]

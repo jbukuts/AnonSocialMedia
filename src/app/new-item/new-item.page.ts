@@ -7,9 +7,7 @@ import { File } from '@ionic-native/file/ngx';
 import { v1 as uuidv1 } from 'uuid';
 import * as firebase from 'firebase';
 import { ActivatedRoute } from '@angular/router';
-
-
-
+import { Location } from '@angular/common';
 
 import { ItemService } from '../item.service';
 
@@ -35,7 +33,8 @@ export class NewItemPage implements OnInit {
     private camera: Camera,
     public actionSheet : ActionSheetController,
     private file : File,
-    private route: ActivatedRoute
+    private route : ActivatedRoute,
+    private location : Location 
 
   ) { }
 
@@ -142,7 +141,7 @@ export class NewItemPage implements OnInit {
     this.new_post_form.reset();
     this.presentToast()
 
-    // return to home page
-    this.router.navigate(['./home']);
+    // return to last page
+    this.location.back()
   }
 }

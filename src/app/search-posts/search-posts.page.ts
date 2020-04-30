@@ -12,7 +12,9 @@ import * as firebase from 'firebase';
 })
 export class SearchPostsPage implements OnInit {
 
-  public posts: any;
+  private boards = ['original-post','art-post','media-post'];
+
+  public posts: Array<any>;
   public filterPost: any
   searchTerm: string = "";
 
@@ -20,12 +22,37 @@ export class SearchPostsPage implements OnInit {
     private router: Router,
     public itemService: ItemService,
     public events: Events,
-  ) { 
+  ) {
   }
 
   async ngOnInit() {
     var self = this;
-    self.posts = await self.itemService.getPosts('original-post');
+    self.posts = new Array();
+    let db = firebase.firestore();
+
+    // get all post from all boards
+    for (let b of self.boards) {
+      db.collection(b).get().then( function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          var item = doc.data();
+          
+          self.posts.push({
+            text : item.text,
+            title : item.title,
+            timestamp: item.timestamp,
+            docId : doc.ref.id,
+            board : b
+          });
+  
+          // check to see if item has image
+          if (item.img != null) {
+            self.posts[self.posts.length-1]['img'] = item.img;
+          }
+        }
+      )});
+    }
+
+    console.log(self.posts);
     self.filterPost = self.posts;
   }
 

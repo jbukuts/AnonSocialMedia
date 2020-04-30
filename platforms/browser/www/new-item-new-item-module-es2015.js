@@ -131,7 +131,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
 /* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _item_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../item.service */ "./src/app/item.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _item_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../item.service */ "./src/app/item.service.ts");
+
 
 
 
@@ -144,7 +146,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let NewItemPage = class NewItemPage {
-    constructor(router, formBuilder, itemService, toastController, camera, actionSheet, file, route) {
+    constructor(router, formBuilder, itemService, toastController, camera, actionSheet, file, route, location) {
         this.router = router;
         this.formBuilder = formBuilder;
         this.itemService = itemService;
@@ -153,6 +155,7 @@ let NewItemPage = class NewItemPage {
         this.actionSheet = actionSheet;
         this.file = file;
         this.route = route;
+        this.location = location;
         this.regex = "^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$";
     }
     pickImage(sourceType) {
@@ -245,20 +248,21 @@ let NewItemPage = class NewItemPage {
             this.itemService.createPost(value.title, value.text, imgUrl, this.board);
             this.new_post_form.reset();
             this.presentToast();
-            // return to home page
-            this.router.navigate(['./home']);
+            // return to last page
+            this.location.back();
         });
     }
 };
 NewItemPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
-    { type: _item_service__WEBPACK_IMPORTED_MODULE_9__["ItemService"] },
+    { type: _item_service__WEBPACK_IMPORTED_MODULE_10__["ItemService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"] },
     { type: _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_5__["Camera"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"] },
     { type: _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"] }
 ];
 NewItemPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -268,12 +272,13 @@ NewItemPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-        _item_service__WEBPACK_IMPORTED_MODULE_9__["ItemService"],
+        _item_service__WEBPACK_IMPORTED_MODULE_10__["ItemService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"],
         _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_5__["Camera"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"],
         _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+        _angular_common__WEBPACK_IMPORTED_MODULE_9__["Location"]])
 ], NewItemPage);
 
 

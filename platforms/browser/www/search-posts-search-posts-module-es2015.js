@@ -79,8 +79,8 @@ let ItemService = class ItemService {
         db.collection(collectionName).get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var item = doc.data();
-                console.log(doc.data());
-                console.log(doc.ref.id);
+                //console.log(doc.data());
+                //console.log(doc.ref.id);
                 // add item to the database
                 // ensure doc is there for deletion
                 postList.push({
@@ -297,12 +297,30 @@ let SearchPostsPage = class SearchPostsPage {
         this.router = router;
         this.itemService = itemService;
         this.events = events;
+        this.boards = ['original-post', 'art-post'];
         this.searchTerm = "";
+    }
+    mergePost() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            var m = new Array();
+            for (const b of this.boards) {
+                var l = this.itemService.getPosts(b);
+                console.log(l.length);
+                console.log(l);
+                for (var i = 0; i < l.length; i++) {
+                    console.log(l[i]);
+                    m.push(l[i]);
+                }
+            }
+            console.log(m);
+            return m;
+        });
     }
     ngOnInit() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             var self = this;
-            self.posts = yield self.itemService.getPosts('original-post');
+            self.posts = yield self.mergePost();
+            console.log(self.posts);
             self.filterPost = self.posts;
         });
     }

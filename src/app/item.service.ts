@@ -68,8 +68,8 @@ export class ItemService {
     db.collection(collectionName).get().then( function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         var item = doc.data();
-        console.log(doc.data());
-        console.log(doc.ref.id);
+        //console.log(doc.data());
+        //console.log(doc.ref.id);
 
         
         // add item to the database
