@@ -403,17 +403,6 @@ var findCheckedOption = function (el, tagName) {
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/image-modal/image-modal.page.html":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/image-modal/image-modal.page.html ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n<ion-content>\n  <ion-button fill=\"clear\" (click)=\"dismiss()\">\n    <ion-icon slot=\"icon-only\" src=\"assets/icon/close-outline.svg\"></ion-icon>\n  </ion-button>\n\n  <ion-slides>\n    <ion-slide>\n      <div class=\"swiper-zoom-container\">\n        <img src=\"{{img}}\">\n      </div>\n    </ion-slide>\n  </ion-slides>\n\n  <ion-button fill=\"clear\" download=\"img\">\n    <ion-icon slot=\"icon-only\" src=\"assets/icon/download-outline.svg\"></ion-icon>\n  </ion-button>\n\n</ion-content>\n"
-
-/***/ }),
-
 /***/ "./node_modules/raw-loader/index.js!./src/app/show-reply-modal/show-reply-modal.page.html":
 /*!***************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/show-reply-modal/show-reply-modal.page.html ***!
@@ -421,162 +410,7 @@ module.exports = "\n<ion-content>\n  <ion-button fill=\"clear\" (click)=\"dismis
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n\n\n\n  <ion-card *ngIf=\"post\">\n\n      <ion-toolbar>\n        <ion-title *ngIf=\"post\">{{post.docId}}</ion-title>\n        <ion-buttons slot=\"end\">\n          <ion-button (click)=\"dismiss()\">Close</ion-button>\n        </ion-buttons>\n      </ion-toolbar>\n\n      <ion-img *ngIf=\"post.img\" [src]=\"post.img\"></ion-img>\n\n    <ion-text>\n      <p id=\"title\" *ngIf=\"post.title\">{{post.title}}</p>\n      <p id=\"text\">{{post.text}}</p>\n      <p id=\"timestamp\" *ngIf=\"post.timestamp\">Posted At {{getDate(post.timestamp)}}</p>\n    </ion-text>\n  </ion-card>\n  \n\n\n\n\n</ion-content>\n"
-
-/***/ }),
-
-/***/ "./src/app/image-modal/image-modal-routing.module.ts":
-/*!***********************************************************!*\
-  !*** ./src/app/image-modal/image-modal-routing.module.ts ***!
-  \***********************************************************/
-/*! exports provided: ImageModalPageRoutingModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageModalPageRoutingModule", function() { return ImageModalPageRoutingModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _image_modal_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./image-modal.page */ "./src/app/image-modal/image-modal.page.ts");
-
-
-
-
-var routes = [
-    {
-        path: '',
-        component: _image_modal_page__WEBPACK_IMPORTED_MODULE_3__["ImageModalPage"]
-    }
-];
-var ImageModalPageRoutingModule = /** @class */ (function () {
-    function ImageModalPageRoutingModule() {
-    }
-    ImageModalPageRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
-            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
-        })
-    ], ImageModalPageRoutingModule);
-    return ImageModalPageRoutingModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/image-modal/image-modal.module.ts":
-/*!***************************************************!*\
-  !*** ./src/app/image-modal/image-modal.module.ts ***!
-  \***************************************************/
-/*! exports provided: ImageModalPageModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageModalPageModule", function() { return ImageModalPageModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _image_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./image-modal-routing.module */ "./src/app/image-modal/image-modal-routing.module.ts");
-/* harmony import */ var _image_modal_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./image-modal.page */ "./src/app/image-modal/image-modal.page.ts");
-
-
-
-
-
-
-
-var ImageModalPageModule = /** @class */ (function () {
-    function ImageModalPageModule() {
-    }
-    ImageModalPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-                _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
-                _image_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__["ImageModalPageRoutingModule"]
-            ],
-            declarations: [_image_modal_page__WEBPACK_IMPORTED_MODULE_6__["ImageModalPage"]]
-        })
-    ], ImageModalPageModule);
-    return ImageModalPageModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/image-modal/image-modal.page.scss":
-/*!***************************************************!*\
-  !*** ./src/app/image-modal/image-modal.page.scss ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "ion-content {\n  --background: rgb(160, 160, 160, .2);\n}\n\nion-slides {\n  height: 80%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pidWt1dHMvRG9jdW1lbnRzL0dpdGh1Yi9Bbm9uU29jaWFsTWVkaWEvc3JjL2FwcC9pbWFnZS1tb2RhbC9pbWFnZS1tb2RhbC5wYWdlLnNjc3MiLCJzcmMvYXBwL2ltYWdlLW1vZGFsL2ltYWdlLW1vZGFsLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLG9DQUFBO0FDQ0o7O0FER0E7RUFDSSxXQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9pbWFnZS1tb2RhbC9pbWFnZS1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY29udGVudCB7XG4gICAgLS1iYWNrZ3JvdW5kOiByZ2IoMTYwLCAxNjAsIDE2MCwgLjIpOyAgXG59XG5cblxuaW9uLXNsaWRlcyB7XG4gICAgaGVpZ2h0OiA4MCU7XG59IiwiaW9uLWNvbnRlbnQge1xuICAtLWJhY2tncm91bmQ6IHJnYigxNjAsIDE2MCwgMTYwLCAuMik7XG59XG5cbmlvbi1zbGlkZXMge1xuICBoZWlnaHQ6IDgwJTtcbn0iXX0= */"
-
-/***/ }),
-
-/***/ "./src/app/image-modal/image-modal.page.ts":
-/*!*************************************************!*\
-  !*** ./src/app/image-modal/image-modal.page.ts ***!
-  \*************************************************/
-/*! exports provided: ImageModalPage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageModalPage", function() { return ImageModalPage; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-
-
-
-
-var ImageModalPage = /** @class */ (function () {
-    function ImageModalPage(modalController, navParams) {
-        this.modalController = modalController;
-        console.log(navParams.get('img'));
-        this.modalCtrl = modalController;
-    }
-    ImageModalPage.prototype.ngOnInit = function () {
-    };
-    ImageModalPage.prototype.dismiss = function () {
-        // using the injected ModalController this page
-        // can "dismiss" itself and optionally pass back data
-        this.modalCtrl.dismiss({
-            'dismissed': true
-        });
-    };
-    // to zoom the image
-    ImageModalPage.prototype.zoom = function (zoomIn) {
-    };
-    ImageModalPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ImageModalPage.prototype, "img", void 0);
-    ImageModalPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-image-modal',
-            template: __webpack_require__(/*! raw-loader!./image-modal.page.html */ "./node_modules/raw-loader/index.js!./src/app/image-modal/image-modal.page.html"),
-            styles: [__webpack_require__(/*! ./image-modal.page.scss */ "./src/app/image-modal/image-modal.page.scss")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"]])
-    ], ImageModalPage);
-    return ImageModalPage;
-}());
-
-
+module.exports = "<ion-content>\n\n\n\n  <ion-card *ngIf=\"post\">\n\n      <ion-toolbar>\n        <ion-title *ngIf=\"post\">{{post.docId}}</ion-title>\n        <ion-buttons slot=\"end\">\n          <ion-button (click)=\"dismiss()\">Close</ion-button>\n        </ion-buttons>\n      </ion-toolbar>\n\n      <ion-img *ngIf=\"post.img\" [src]=\"post.img\"></ion-img>\n\n    <ion-text>\n      <p id=\"title\" *ngIf=\"post.title\">{{post.title}}</p>\n      <p id=\"text\">{{post.text}}</p>\n      <p id=\"timestamp\" color=\"primary\" *ngIf=\"post.timestamp\">Posted At {{getDate(post.timestamp)}}</p>\n    </ion-text>\n  </ion-card>\n  \n\n\n\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -672,7 +506,7 @@ var ShowReplyModalPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-content {\n  --background: rgb(160, 160, 160, .01);\n}\n\nion-card {\n  --background: rgb(255, 255, 255, 1);\n  width: 85%;\n  height: auto;\n  border-radius: 15px;\n  margin: auto;\n  -webkit-transform: translate(0%, -50%);\n          transform: translate(0%, -50%);\n  top: 50%;\n}\n\nion-img {\n  border-radius: 20%;\n  width: 80%;\n  margin: auto;\n}\n\n#title {\n  font-size: 20px;\n  color: black;\n  margin-left: 10px;\n  font-weight: bold;\n}\n\n#text {\n  font-size: 16px;\n  color: #444444;\n  margin-left: 10px;\n}\n\n#timestamp {\n  font-size: 12px;\n  color: #8a2173;\n  margin-left: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pidWt1dHMvRG9jdW1lbnRzL0dpdGh1Yi9Bbm9uU29jaWFsTWVkaWEvc3JjL2FwcC9zaG93LXJlcGx5LW1vZGFsL3Nob3ctcmVwbHktbW9kYWwucGFnZS5zY3NzIiwic3JjL2FwcC9zaG93LXJlcGx5LW1vZGFsL3Nob3ctcmVwbHktbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kscUNBQUE7QUNDSjs7QURFQTtFQUNJLG1DQUFBO0VBQ0EsVUFBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxzQ0FBQTtVQUFBLDhCQUFBO0VBQ0EsUUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsY0FBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsY0FBQTtFQUNBLGlCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9zaG93LXJlcGx5LW1vZGFsL3Nob3ctcmVwbHktbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNvbnRlbnQge1xuICAgIC0tYmFja2dyb3VuZDogcmdiKDE2MCwgMTYwLCAxNjAsIC4wMSk7ICBcbn1cblxuaW9uLWNhcmQge1xuICAgIC0tYmFja2dyb3VuZDogcmdiKDI1NSwgMjU1LCAyNTUsIDEpOyAgXG4gICAgd2lkdGg6IDg1JTtcbiAgICBoZWlnaHQ6IGF1dG87XG4gICAgYm9yZGVyLXJhZGl1czogMTVweDtcbiAgICBtYXJnaW46IGF1dG87XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCUsIC01MCUpO1xuICAgIHRvcDogNTAlO1xufVxuXG5pb24taW1nIHtcbiAgICBib3JkZXItcmFkaXVzOiAyMCU7XG4gICAgd2lkdGg6IDgwJTtcbiAgICBtYXJnaW46IGF1dG9cbn1cblxuI3RpdGxlIHtcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgY29sb3I6IGJsYWNrO1xuICAgIG1hcmdpbi1sZWZ0OiAxMHB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jdGV4dCB7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIGNvbG9yOiAjNDQ0NDQ0O1xuICAgIG1hcmdpbi1sZWZ0OiAxMHB4O1xufVxuXG4jdGltZXN0YW1wIHtcbiAgICBmb250LXNpemU6IDEycHg7XG4gICAgY29sb3I6ICM4YTIxNzM7XG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XG59IiwiaW9uLWNvbnRlbnQge1xuICAtLWJhY2tncm91bmQ6IHJnYigxNjAsIDE2MCwgMTYwLCAuMDEpO1xufVxuXG5pb24tY2FyZCB7XG4gIC0tYmFja2dyb3VuZDogcmdiKDI1NSwgMjU1LCAyNTUsIDEpO1xuICB3aWR0aDogODUlO1xuICBoZWlnaHQ6IGF1dG87XG4gIGJvcmRlci1yYWRpdXM6IDE1cHg7XG4gIG1hcmdpbjogYXV0bztcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCUsIC01MCUpO1xuICB0b3A6IDUwJTtcbn1cblxuaW9uLWltZyB7XG4gIGJvcmRlci1yYWRpdXM6IDIwJTtcbiAgd2lkdGg6IDgwJTtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4jdGl0bGUge1xuICBmb250LXNpemU6IDIwcHg7XG4gIGNvbG9yOiBibGFjaztcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jdGV4dCB7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgY29sb3I6ICM0NDQ0NDQ7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xufVxuXG4jdGltZXN0YW1wIHtcbiAgZm9udC1zaXplOiAxMnB4O1xuICBjb2xvcjogIzhhMjE3MztcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XG59Il19 */"
+module.exports = "ion-content {\n  --background: rgb(160, 160, 160, .01);\n}\n\nion-card {\n  --background: rgb(255, 255, 255, 1);\n  width: 85%;\n  height: auto;\n  border-radius: 15px;\n  margin: auto;\n  -webkit-transform: translate(0%, -50%);\n          transform: translate(0%, -50%);\n  top: 50%;\n}\n\nion-img {\n  border-radius: 20%;\n  width: 80%;\n  margin: auto;\n}\n\n#title {\n  font-size: 20px;\n  color: black;\n  margin-left: 10px;\n  font-weight: bold;\n}\n\n#text {\n  font-size: 16px;\n  color: #444444;\n  margin-left: 10px;\n}\n\n#timestamp {\n  font-size: 12px;\n  margin-left: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pidWt1dHMvRG9jdW1lbnRzL0dpdGh1Yi9Bbm9uU29jaWFsTWVkaWEvc3JjL2FwcC9zaG93LXJlcGx5LW1vZGFsL3Nob3ctcmVwbHktbW9kYWwucGFnZS5zY3NzIiwic3JjL2FwcC9zaG93LXJlcGx5LW1vZGFsL3Nob3ctcmVwbHktbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kscUNBQUE7QUNDSjs7QURFQTtFQUNJLG1DQUFBO0VBQ0EsVUFBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxzQ0FBQTtVQUFBLDhCQUFBO0VBQ0EsUUFBQTtBQ0NKOztBREVBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsWUFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsY0FBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3Nob3ctcmVwbHktbW9kYWwvc2hvdy1yZXBseS1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY29udGVudCB7XG4gICAgLS1iYWNrZ3JvdW5kOiByZ2IoMTYwLCAxNjAsIDE2MCwgLjAxKTsgIFxufVxuXG5pb24tY2FyZCB7XG4gICAgLS1iYWNrZ3JvdW5kOiByZ2IoMjU1LCAyNTUsIDI1NSwgMSk7ICBcbiAgICB3aWR0aDogODUlO1xuICAgIGhlaWdodDogYXV0bztcbiAgICBib3JkZXItcmFkaXVzOiAxNXB4O1xuICAgIG1hcmdpbjogYXV0bztcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgwJSwgLTUwJSk7XG4gICAgdG9wOiA1MCU7XG59XG5cbmlvbi1pbWcge1xuICAgIGJvcmRlci1yYWRpdXM6IDIwJTtcbiAgICB3aWR0aDogODAlO1xuICAgIG1hcmdpbjogYXV0b1xufVxuXG4jdGl0bGUge1xuICAgIGZvbnQtc2l6ZTogMjBweDtcbiAgICBjb2xvcjogYmxhY2s7XG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbiN0ZXh0IHtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgY29sb3I6ICM0NDQ0NDQ7XG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XG59XG5cbiN0aW1lc3RhbXAge1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn0iLCJpb24tY29udGVudCB7XG4gIC0tYmFja2dyb3VuZDogcmdiKDE2MCwgMTYwLCAxNjAsIC4wMSk7XG59XG5cbmlvbi1jYXJkIHtcbiAgLS1iYWNrZ3JvdW5kOiByZ2IoMjU1LCAyNTUsIDI1NSwgMSk7XG4gIHdpZHRoOiA4NSU7XG4gIGhlaWdodDogYXV0bztcbiAgYm9yZGVyLXJhZGl1czogMTVweDtcbiAgbWFyZ2luOiBhdXRvO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgwJSwgLTUwJSk7XG4gIHRvcDogNTAlO1xufVxuXG5pb24taW1nIHtcbiAgYm9yZGVyLXJhZGl1czogMjAlO1xuICB3aWR0aDogODAlO1xuICBtYXJnaW46IGF1dG87XG59XG5cbiN0aXRsZSB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgY29sb3I6IGJsYWNrO1xuICBtYXJnaW4tbGVmdDogMTBweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbiN0ZXh0IHtcbiAgZm9udC1zaXplOiAxNnB4O1xuICBjb2xvcjogIzQ0NDQ0NDtcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XG59XG5cbiN0aW1lc3RhbXAge1xuICBmb250LXNpemU6IDEycHg7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xufSJdfQ== */"
 
 /***/ }),
 
@@ -701,13 +535,12 @@ var ShowReplyModalPage = /** @class */ (function () {
         this.modalController = modalController;
         this.itemService = itemService;
         this.events = events;
-        console.log(navParams.get('replyTo'));
         this.modalCtrl = modalController;
     }
     ShowReplyModalPage.prototype.ngOnInit = function () {
     };
     ShowReplyModalPage.prototype.getDate = function (d) {
-        var date = new Date(d);
+        var date = new Date(parseInt(d));
         return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
     };
     ShowReplyModalPage.prototype.dismiss = function () {

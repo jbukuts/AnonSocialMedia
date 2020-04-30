@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title *ngIf=\"replyTo\">Reply {{replyTo}}</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"dismiss()\">Close</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-label class=\"postTitle\" *ngIf=\"text\">{{text}}</ion-label>\n\n\n  <form [formGroup]=\"new_reply_form\" (submit)=\"createReply(new_reply_form.value)\">\n    <ion-item>\n      <ion-label position=\"stacked\">Text</ion-label>\n      <ion-textarea type=\"text\" formControlName=\"text\" required=true></ion-textarea>\n    </ion-item>\n\n    <ion-button class=\"submit-btn\" expand=\"block\" (click)=\"selectImage()\">\n      Add Image\n    </ion-button>\n\n    <ion-img *ngIf=\"imgFile\" style=\"border-radius: 10px; overflow:hidden;\" [src]=\"imgFile\"></ion-img>\n\n    <ion-button class=\"submit-btn\" expand=\"block\" type=\"submit\" disabled={{!new_reply_form.valid}}>\n      Create Reply\n    </ion-button>\n\n  </form>\n\n</ion-content>\n"
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title *ngIf=\"post\">Reply {{post.docId}}</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button (click)=\"dismiss()\">Close</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card *ngIf=\"post\">\n    <ion-img *ngIf=\"post.img\" [src]=\"post.img\"></ion-img>\n    <ion-text>\n      <p id=\"title\" *ngIf=\"post.title\">{{post.title}}</p>\n      <p id=\"text\">{{post.text}}</p>\n      <p id=\"timestamp\" color=\"primary\" *ngIf=\"post.timestamp\">Posted At {{getDate(post.timestamp)}}</p>\n    </ion-text>\n</ion-card>\n\n\n  <form [formGroup]=\"new_reply_form\" (submit)=\"createReply(new_reply_form.value)\">\n    <ion-item>\n      <ion-label position=\"stacked\">Text</ion-label>\n      <ion-textarea type=\"text\" formControlName=\"text\" required=true></ion-textarea>\n    </ion-item>\n\n    <ion-button class=\"submit-btn\" expand=\"block\" (click)=\"selectImage()\">\n      Add Image\n    </ion-button>\n\n    <ion-img *ngIf=\"imgFile\" style=\"border-radius: 10px; overflow:hidden;\" [src]=\"imgFile\"></ion-img>\n\n    <ion-button class=\"submit-btn\" expand=\"block\" type=\"submit\" disabled={{!new_reply_form.valid}}>\n      Create Reply\n    </ion-button>\n\n  </form>\n\n</ion-content>\n"
 
 /***/ }),
 
@@ -112,7 +112,7 @@ var ReplyModalPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".postTitle {\n  text-align: center;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pidWt1dHMvRG9jdW1lbnRzL0dpdGh1Yi9Bbm9uU29jaWFsTWVkaWEvc3JjL2FwcC9yZXBseS1tb2RhbC9yZXBseS1tb2RhbC5wYWdlLnNjc3MiLCJzcmMvYXBwL3JlcGx5LW1vZGFsL3JlcGx5LW1vZGFsLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9yZXBseS1tb2RhbC9yZXBseS1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucG9zdFRpdGxlIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLXRvcDogNXB4O1xuICAgIG1hcmdpbi1ib3R0b206IDVweDtcbn0iLCIucG9zdFRpdGxlIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW4tdG9wOiA1cHg7XG4gIG1hcmdpbi1ib3R0b206IDVweDtcbn0iXX0= */"
+module.exports = "#title {\n  font-size: 20px;\n  color: black;\n  margin-left: 10px;\n  font-weight: bold;\n}\n\n#text {\n  font-size: 16px;\n  color: #444444;\n  margin-left: 10px;\n}\n\n#timestamp {\n  font-size: 12px;\n  margin-left: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2pidWt1dHMvRG9jdW1lbnRzL0dpdGh1Yi9Bbm9uU29jaWFsTWVkaWEvc3JjL2FwcC9yZXBseS1tb2RhbC9yZXBseS1tb2RhbC5wYWdlLnNjc3MiLCJzcmMvYXBwL3JlcGx5LW1vZGFsL3JlcGx5LW1vZGFsLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQUE7RUFDQSxZQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLGNBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLGlCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9yZXBseS1tb2RhbC9yZXBseS1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjdGl0bGUge1xuICAgIGZvbnQtc2l6ZTogMjBweDtcbiAgICBjb2xvcjogYmxhY2s7XG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbiN0ZXh0IHtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgY29sb3I6ICM0NDQ0NDQ7XG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XG59XG5cbiN0aW1lc3RhbXAge1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn0iLCIjdGl0bGUge1xuICBmb250LXNpemU6IDIwcHg7XG4gIGNvbG9yOiBibGFjaztcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuXG4jdGV4dCB7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgY29sb3I6ICM0NDQ0NDQ7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xufVxuXG4jdGltZXN0YW1wIHtcbiAgZm9udC1zaXplOiAxMnB4O1xuICBtYXJnaW4tbGVmdDogMTBweDtcbn0iXX0= */"
 
 /***/ }),
 
@@ -158,13 +158,16 @@ var ReplyModalPage = /** @class */ (function () {
         this.camera = camera;
         this.actionSheet = actionSheet;
         this.file = file;
-        console.log(navParams.get('replyTo'));
         this.modalCtrl = modalController;
     }
     ReplyModalPage.prototype.ngOnInit = function () {
         this.new_reply_form = this.formBuilder.group({
             text: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required)
         });
+    };
+    ReplyModalPage.prototype.getDate = function (d) {
+        var date = new Date(parseInt(d));
+        return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
     };
     // pops up the action sheet
     ReplyModalPage.prototype.selectImage = function () {
@@ -237,7 +240,7 @@ var ReplyModalPage = /** @class */ (function () {
                         self = this;
                         object = {
                             text: reply.text,
-                            replyTo: this.replyTo,
+                            replyTo: this.post.docId,
                             timestamp: Date.now()
                         };
                         if (!(this.imgFile != null)) return [3 /*break*/, 4];
@@ -254,7 +257,7 @@ var ReplyModalPage = /** @class */ (function () {
                         _a.label = 4;
                     case 4:
                         db = firebase__WEBPACK_IMPORTED_MODULE_5__["firestore"]();
-                        db.collection('original-post/' + this.originalPost + '/replies').add(object)
+                        db.collection(this.board + '/' + this.originalPost + '/replies').add(object)
                             .then(function (docRef) {
                             console.log("Document written with ID", docRef.id);
                             // TODO: add replies to your post!
@@ -293,12 +296,12 @@ var ReplyModalPage = /** @class */ (function () {
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ReplyModalPage.prototype, "replyTo", void 0);
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], ReplyModalPage.prototype, "post", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], ReplyModalPage.prototype, "text", void 0);
+    ], ReplyModalPage.prototype, "board", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)

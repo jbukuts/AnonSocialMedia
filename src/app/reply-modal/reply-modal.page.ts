@@ -22,10 +22,9 @@ export class ReplyModalPage implements OnInit {
   new_reply_form: FormGroup;
 
   imgFile;
-
-  @Input() replyTo: string;
-  @Input() text: string;
-  @Input() originalPost: string;
+  @Input() post : any;
+  @Input() board : String;
+  @Input() originalPost : string;
 
   constructor(
     public modalController: ModalController,
@@ -38,7 +37,6 @@ export class ReplyModalPage implements OnInit {
     private file : File,
   ) 
   { 
-    console.log(navParams.get('replyTo'));
     this.modalCtrl = modalController;
   }
 
@@ -46,6 +44,11 @@ export class ReplyModalPage implements OnInit {
     this.new_reply_form = this.formBuilder.group({
       text: new FormControl('',Validators.required)
     });
+  }
+
+  private getDate(d) {
+    var date = new Date(parseInt(d));
+    return (date.getMonth()+1)+ "/" + date.getDate() + "/" +date.getFullYear() +" "+date.getHours()+":"+("0"+date.getMinutes()).slice(-2)+":"+("0"+date.getSeconds()).slice(-2);
   }
 
   // pops up the action sheet
@@ -102,7 +105,7 @@ export class ReplyModalPage implements OnInit {
     var self = this;
     let object = {
       text : reply.text,
-      replyTo : this.replyTo,
+      replyTo : this.post.docId,
       timestamp : Date.now()
     };
 
@@ -121,7 +124,7 @@ export class ReplyModalPage implements OnInit {
 
     // add to db
     var db = firebase.firestore();
-    db.collection('original-post/'+this.originalPost+'/replies').add(object)
+    db.collection(this.board+'/'+this.originalPost+'/replies').add(object)
     .then(function(docRef) {
       console.log("Document written with ID",docRef.id);
       // TODO: add replies to your post!

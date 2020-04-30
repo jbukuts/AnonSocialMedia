@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar color=\"secondary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>\n      Top Posts\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button id=\"newItem\" (click)=\"directNewPost()\">\n        <ion-icon slot=\"icon-only\" name=\"add-circle\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list lines=\"none\" *ngFor=\"let item of items\" style=\"margin-bottom: 2px; margin-top: 2px;\">\n    <ion-item (click)=\"goToItem(item)\" style=\"margin-bottom: 0px; margin-top: 0px; border-radius: 2px; width: 100%;\" color=\"tertiary\" >\n      <ion-thumbnail *ngIf=\"item.img\" slot=\"start\">\n        <ion-img [src]=\"item.img\" style=\"border-radius: 50%\"></ion-img>\n      </ion-thumbnail>\n\n      <ion-thumbnail *ngIf=\"item.img==null\" slot=\"start\">\n        <ion-img [src]=\"'https://www.cowgirlcontractcleaning.com/wp-content/uploads/sites/360/2018/05/placeholder-img-3.jpg'\" style=\"border-radius: 50%\"></ion-img>\n      </ion-thumbnail>\n      \n      <ion-grid>\n        <ion-row>\n          <ion-col>\n            <ion-label>No. {{ item.docId }}</ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-weight: bold;\">{{getTitle(item.title)}}</ion-label>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n      <ion-icon slot=\"end\" src=\"assets/icon/arrow-forward-outline.svg\"></ion-icon>\n    </ion-item>\n    \n  </ion-list>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar color=\"secondary\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>\n      Top Posts\n    </ion-title>\n\n    <ion-buttons slot=\"end\">\n      <ion-button id=\"newItem\" (click)=\"directNewPost()\">\n        <ion-icon slot=\"icon-only\" name=\"add-circle\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list lines=\"none\" *ngFor=\"let item of posts\" style=\"margin-bottom: 2px; margin-top: 2px;\">\n    <ion-item (click)=\"goToItem(item)\" style=\"margin-bottom: 0px; margin-top: 0px; border-radius: 2px; width: 100%;\" color=\"tertiary\" >\n      <ion-thumbnail *ngIf=\"item.img\" slot=\"start\">\n        <ion-img [src]=\"item.img\" style=\"border-radius: 50%\"></ion-img>\n      </ion-thumbnail>\n\n      <ion-thumbnail *ngIf=\"item.img==null\" slot=\"start\">\n        <ion-img [src]=\"'https://www.cowgirlcontractcleaning.com/wp-content/uploads/sites/360/2018/05/placeholder-img-3.jpg'\" style=\"border-radius: 50%\"></ion-img>\n      </ion-thumbnail>\n      \n      <ion-grid>\n        <ion-row>\n          <ion-col>\n            <ion-label>No. {{ item.docId }}</ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-weight: bold;\">{{getTitle(item.title)}}</ion-label>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n      <ion-icon slot=\"end\" src=\"assets/icon/arrow-forward-outline.svg\"></ion-icon>\n    </ion-item>\n    \n  </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -87,9 +87,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _item_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../item.service */ "./src/app/item.service.ts");
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_5__);
-
 
 
 
@@ -104,22 +101,13 @@ var HomePage = /** @class */ (function () {
         this.toastController = toastController;
         var self = this;
         events.subscribe('dataloaded', function (time) {
-            self.items = [];
-            self.items = self.itemService.posts;
-            // user and time are the same arguments passed in `events.publish(user, time)`
-            console.log('data reloading  time:', time);
-            console.log(self.items);
+            self.posts = self.itemService.getPosts('original-post');
         });
-        self.itemService.getPosts();
-        console.log(firebase__WEBPACK_IMPORTED_MODULE_5__["auth"]().currentUser);
-        if (firebase__WEBPACK_IMPORTED_MODULE_5__["auth"]().currentUser == null) {
-            console.log("user not logged in");
-            return;
-        }
-        console.log(self.items);
+        console.log(self.posts);
     }
     HomePage.prototype.ngOnInit = function () {
         var self = this;
+        self.posts = self.itemService.getPosts('original-post');
     };
     HomePage.prototype.getTitle = function (title) {
         return (title.length > 15) ? title.substring(0, 15) + "..." : title;
@@ -127,9 +115,11 @@ var HomePage = /** @class */ (function () {
     // go to the new item page
     HomePage.prototype.directNewPost = function () {
         console.log("clicked new item");
-        this.router.navigate(["/new-item"]);
+        var board = { 'board': 'original-post' };
+        this.router.navigate(["/new-item", board]);
     };
     HomePage.prototype.goToItem = function (post) {
+        post['board'] = 'original-post';
         console.log("displaying item info");
         console.log(post);
         this.router.navigate(["./product-detail", post]);
@@ -182,13 +172,12 @@ var HomePage = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./src/app/item.service.ts ***!
   \*********************************/
-/*! exports provided: ItemService, snapshotToArray */
+/*! exports provided: ItemService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ItemService", function() { return ItemService; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "snapshotToArray", function() { return snapshotToArray; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
@@ -201,29 +190,16 @@ __webpack_require__.r(__webpack_exports__);
 
 var ItemService = /** @class */ (function () {
     function ItemService(events, toastController) {
-        var _this = this;
         this.events = events;
         this.toastController = toastController;
         this.ref = firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('original-post/');
-        this.posts = new Array();
         // this will represent the post you have made
         this.yourPost = new Array();
-        console.log("loading saved items");
-        this.ref.on('value', function (resp) {
-            _this.posts = [];
-            _this.posts = snapshotToArray(resp);
-            console.log(_this.posts.length + " items loaded");
-            console.log(_this.posts);
-            _this.events.publish('dataloaded', Date.now());
-        });
     }
     ItemService.prototype.getYourPosts = function () {
         return this.yourPost;
     };
-    ItemService.prototype.compareDate = function (a, b) {
-        return a - b;
-    };
-    ItemService.prototype.getReplies = function (threadId) {
+    ItemService.prototype.getReplies = function (threadId, board) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var curr, replies, db;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
@@ -231,7 +207,7 @@ var ItemService = /** @class */ (function () {
                 replies = [];
                 db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
                 // get replies and order by timestamp
-                db.collection('original-post/' + threadId + '/replies').orderBy('timestamp').get().then(function (querySnapshot) {
+                db.collection(board + '/' + threadId + '/replies').orderBy('timestamp').get().then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         var item = doc.data();
                         console.log(doc.data());
@@ -257,18 +233,17 @@ var ItemService = /** @class */ (function () {
         });
     };
     // return the items
-    ItemService.prototype.getPosts = function () {
-        var curr = this;
-        curr.posts = [];
+    ItemService.prototype.getPosts = function (collectionName) {
+        var postList = [];
         var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
-        db.collection('original-post').get().then(function (querySnapshot) {
+        db.collection(collectionName).get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var item = doc.data();
                 console.log(doc.data());
                 console.log(doc.ref.id);
                 // add item to the database
                 // ensure doc is there for deletion
-                curr.posts.push({
+                postList.push({
                     text: item.text,
                     title: item.title,
                     timestamp: item.timestamp,
@@ -276,18 +251,18 @@ var ItemService = /** @class */ (function () {
                 });
                 // check to see if item has image
                 if (item.img != null) {
-                    curr.posts[curr.posts.length - 1]['img'] = item.img;
+                    postList[postList.length - 1]['img'] = item.img;
                 }
             });
         });
-        curr.events.publish('dataloaded', Date.now());
+        return postList;
     };
     // used to create post without image
-    ItemService.prototype.createPostNoImage = function (title, text) {
+    ItemService.prototype.createPostNoImage = function (title, text, board) {
         var self = this;
         // add to db
         var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
-        db.collection("original-post").add({
+        db.collection(board).add({
             title: title,
             text: text,
             timestamp: Date.now()
@@ -299,7 +274,8 @@ var ItemService = /** @class */ (function () {
                 title: title,
                 text: text,
                 docId: docRef.id,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                board: board
             });
         })
             .catch(function (error) {
@@ -307,14 +283,14 @@ var ItemService = /** @class */ (function () {
         });
         // update list as item is now gone
         this.events.publish('dataloaded', Date.now());
-        this.getPosts();
+        ;
     };
     // this will create a new post with a picture
-    ItemService.prototype.createPost = function (title, text, img) {
+    ItemService.prototype.createPost = function (title, text, img, board) {
         var self = this;
         // add to db
         var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
-        db.collection("original-post").add({
+        db.collection(board).add({
             title: title,
             text: text,
             timestamp: Date.now(),
@@ -328,7 +304,8 @@ var ItemService = /** @class */ (function () {
                 text: text,
                 img: img,
                 timestamp: Date.now(),
-                docId: docRef.id
+                docId: docRef.id,
+                board: board
             });
         })
             .catch(function (error) {
@@ -336,7 +313,6 @@ var ItemService = /** @class */ (function () {
         });
         // update list as item is now gone
         this.events.publish('dataloaded', Date.now());
-        this.getPosts();
     };
     // displays message telling user that new item was added
     ItemService.prototype.presentToast = function (message) {
@@ -358,15 +334,6 @@ var ItemService = /** @class */ (function () {
             });
         });
     };
-    ItemService.prototype.filterPosts = function (searchTerm) {
-        console.log("filtering: " + searchTerm);
-        if (searchTerm == "") {
-            return this.posts;
-        }
-        return this.posts.filter(function (post) {
-            return post.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-        });
-    };
     ItemService.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
@@ -380,16 +347,6 @@ var ItemService = /** @class */ (function () {
     return ItemService;
 }());
 
-var snapshotToArray = function (snapshot) {
-    var returnArr = [];
-    snapshot.forEach(function (childSnapshot) {
-        var item = childSnapshot.val();
-        item.key = childSnapshot.key;
-        console.log(item);
-        returnArr.push(item);
-    });
-    return returnArr;
-};
 
 
 /***/ })

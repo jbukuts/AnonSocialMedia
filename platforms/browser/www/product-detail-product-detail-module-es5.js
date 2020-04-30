@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header id=\"header\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title *ngIf=\"current_post\">{{current_post.title}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content id=\"content\" padding>\n\n  <ion-item *ngIf=\"current_post\" class=\"reply\" lines=\"none\">\n    <ion-text>\n      <h5 (click)=\"createReply(current_post)\" class=\"postId\">No. {{current_post.docId}}</h5>\n      <ion-img *ngIf=\"current_post.img\" (click)=\"expandImg(current_post.img)\" [src]=\"current_post.img\"></ion-img>\n      <p class=\"postTitle\">{{current_post.title}}</p>\n      <p class=\"postText\">{{current_post.text}}</p>\n    </ion-text>\n  </ion-item>\n\n  <!--This will populate all the replys to the post-->\n\n   <ion-item *ngFor=\"let reply of post_replys\" class=\"reply\" lines=\"none\">\n     <ion-text>\n       <h5 (click)=\"createReply(reply)\" class=\"postId\">No. {{reply.docId}}</h5>\n       <ion-img *ngIf=\"reply.img\" (click)=\"expandImg(reply.img)\" [src]=\"reply.img\"></ion-img>\n       <p class=\"postText\">{{reply.text}}</p>\n       <p (click)=\"showPost(reply)\" class=\"replyTo\">Replying to : {{reply.replyTo}}</p>\n       <p class=\"replyTo\">{{getDate(reply.timestamp)}}</p>\n     </ion-text>\n   </ion-item>\n\n</ion-content>\n\n"
+module.exports = "<ion-header id=\"header\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button></ion-back-button>\n    </ion-buttons>\n    <ion-title *ngIf=\"current_post\">{{current_post.title}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content id=\"content\" padding>\n\n  <ion-item *ngIf=\"current_post\" class=\"reply\" lines=\"none\">\n    <ion-text>\n      <h5 (click)=\"createReply(current_post)\" class=\"postId\">No. {{current_post.docId}}</h5>\n      <ion-img *ngIf=\"current_post.img\" (click)=\"expandImg(current_post.img)\" [src]=\"current_post.img\"></ion-img>\n      <p class=\"postTitle\">{{current_post.title}}</p>\n      <p class=\"postText\">{{current_post.text}}</p>\n      <p class=\"postText\">{{getDate(current_post.timestamp)}}</p>\n    </ion-text>\n  </ion-item>\n\n  <!--This will populate all the replys to the post-->\n\n   <ion-item *ngFor=\"let reply of post_replys\" class=\"reply\" lines=\"none\">\n     <ion-text>\n       <h5 (click)=\"createReply(reply)\" class=\"postId\">No. {{reply.docId}}</h5>\n       <ion-img *ngIf=\"reply.img\" (click)=\"expandImg(reply.img)\" [src]=\"reply.img\"></ion-img>\n       <p class=\"postText\">{{reply.text}}</p>\n       <p (click)=\"showPost(reply)\" class=\"replyTo\">Replying to : {{reply.replyTo}}</p>\n       <p class=\"replyTo\">{{getDate(reply.timestamp)}}</p>\n     </ion-text>\n   </ion-item>\n\n</ion-content>\n\n"
 
 /***/ }),
 
@@ -162,7 +162,7 @@ var ProductDetailPage = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = self;
-                        return [4 /*yield*/, self.getReplys(self.current_post.docId)];
+                        return [4 /*yield*/, self.getReplys(self.current_post.docId, self.current_post.board)];
                     case 1:
                         _a.post_replys = _b.sent();
                         // user and time are the same arguments passed in `events.publish(user, time)`
@@ -213,7 +213,7 @@ var ProductDetailPage = /** @class */ (function () {
                         this.current_post = param;
                         console.log(this.current_post);
                         _a = this;
-                        return [4 /*yield*/, this.getReplys(this.current_post.docId)];
+                        return [4 /*yield*/, this.getReplys(this.current_post.docId, this.current_post.board)];
                     case 1:
                         _a.post_replys = _b.sent();
                         console.log(this.post_replys);
@@ -224,11 +224,11 @@ var ProductDetailPage = /** @class */ (function () {
     };
     // return string of date from timestamp input
     ProductDetailPage.prototype.getDate = function (d) {
-        var date = new Date(d);
+        var date = new Date(parseInt(d));
         return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
     };
     // this will get the post 
-    ProductDetailPage.prototype.getReplys = function (postId) {
+    ProductDetailPage.prototype.getReplys = function (postId, board) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var replys, self;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
@@ -236,16 +236,12 @@ var ProductDetailPage = /** @class */ (function () {
                     case 0:
                         replys = [];
                         self = this;
-                        return [4 /*yield*/, self.presentLoading()];
-                    case 1:
-                        _a.sent();
+                        //await self.presentLoading();
                         console.log("GETTING REPLYS FOR " + postId + "!");
-                        return [4 /*yield*/, this.itemService.getReplies(postId)];
-                    case 2:
+                        return [4 /*yield*/, this.itemService.getReplies(postId, board)];
+                    case 1:
                         replys = _a.sent();
-                        return [4 /*yield*/, self.dismissLoading()];
-                    case 3:
-                        _a.sent();
+                        //await self.dismissLoading();
                         return [2 /*return*/, replys];
                 }
             });
@@ -313,9 +309,9 @@ var ProductDetailPage = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.modalController.create({
                             component: _reply_modal_reply_modal_page__WEBPACK_IMPORTED_MODULE_5__["ReplyModalPage"],
                             componentProps: {
-                                'replyTo': post.docId,
-                                'text': post.text,
-                                'originalPost': this.current_post.docId
+                                'post': post,
+                                'originalPost': this.current_post.docId,
+                                'board': this.current_post.board
                             }
                         })];
                     case 1:

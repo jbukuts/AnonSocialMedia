@@ -478,7 +478,7 @@ const routes = [
     },
     {
         path: 'product-detail',
-        loadChildren: () => Promise.all(/*! import() | product-detail-product-detail-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("common"), __webpack_require__.e("product-detail-product-detail-module")]).then(__webpack_require__.bind(null, /*! ./product-detail/product-detail.module */ "./src/app/product-detail/product-detail.module.ts")).then(m => m.ProductDetailPageModule)
+        loadChildren: () => Promise.all(/*! import() | product-detail-product-detail-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("default~image-modal-image-modal-module~product-detail-product-detail-module"), __webpack_require__.e("default~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("common"), __webpack_require__.e("product-detail-product-detail-module")]).then(__webpack_require__.bind(null, /*! ./product-detail/product-detail.module */ "./src/app/product-detail/product-detail.module.ts")).then(m => m.ProductDetailPageModule)
     },
     {
         path: 'order-detail',
@@ -486,11 +486,11 @@ const routes = [
     },
     {
         path: 'reply-modal',
-        loadChildren: () => Promise.all(/*! import() | reply-modal-reply-modal-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("common")]).then(__webpack_require__.bind(null, /*! ./reply-modal/reply-modal.module */ "./src/app/reply-modal/reply-modal.module.ts")).then(m => m.ReplyModalPageModule)
+        loadChildren: () => Promise.all(/*! import() | reply-modal-reply-modal-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("default~product-detail-product-detail-module~reply-modal-reply-modal-module")]).then(__webpack_require__.bind(null, /*! ./reply-modal/reply-modal.module */ "./src/app/reply-modal/reply-modal.module.ts")).then(m => m.ReplyModalPageModule)
     },
     {
         path: 'image-modal',
-        loadChildren: () => __webpack_require__.e(/*! import() | image-modal-image-modal-module */ "common").then(__webpack_require__.bind(null, /*! ./image-modal/image-modal.module */ "./src/app/image-modal/image-modal.module.ts")).then(m => m.ImageModalPageModule)
+        loadChildren: () => __webpack_require__.e(/*! import() | image-modal-image-modal-module */ "default~image-modal-image-modal-module~product-detail-product-detail-module").then(__webpack_require__.bind(null, /*! ./image-modal/image-modal.module */ "./src/app/image-modal/image-modal.module.ts")).then(m => m.ImageModalPageModule)
     },
     {
         path: 'settings',

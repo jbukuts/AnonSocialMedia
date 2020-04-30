@@ -1,6 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title *ngIf="replyTo">Reply {{replyTo}}</ion-title>
+    <ion-title *ngIf="post">Reply {{post.docId}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">Close</ion-button>
     </ion-buttons>
@@ -8,7 +8,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-label class="postTitle" *ngIf="text">{{text}}</ion-label>
+  <ion-card *ngIf="post">
+    <ion-img *ngIf="post.img" [src]="post.img"></ion-img>
+    <ion-text>
+      <p id="title" *ngIf="post.title">{{post.title}}</p>
+      <p id="text">{{post.text}}</p>
+      <p id="timestamp" color="primary" *ngIf="post.timestamp">Posted At {{getDate(post.timestamp)}}</p>
+    </ion-text>
+</ion-card>
 
 
   <form [formGroup]="new_reply_form" (submit)="createReply(new_reply_form.value)">

@@ -15,13 +15,12 @@ module.exports = "<ion-header>\n  <ion-toolbar color=\"secondary\">\n    <ion-bu
 /*!*********************************!*\
   !*** ./src/app/item.service.ts ***!
   \*********************************/
-/*! exports provided: ItemService, snapshotToArray */
+/*! exports provided: ItemService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ItemService", function() { return ItemService; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "snapshotToArray", function() { return snapshotToArray; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
@@ -37,31 +36,19 @@ let ItemService = class ItemService {
         this.events = events;
         this.toastController = toastController;
         this.ref = firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('original-post/');
-        this.posts = new Array();
         // this will represent the post you have made
         this.yourPost = new Array();
-        console.log("loading saved items");
-        this.ref.on('value', resp => {
-            this.posts = [];
-            this.posts = snapshotToArray(resp);
-            console.log(this.posts.length + " items loaded");
-            console.log(this.posts);
-            this.events.publish('dataloaded', Date.now());
-        });
     }
     getYourPosts() {
         return this.yourPost;
     }
-    compareDate(a, b) {
-        return a - b;
-    }
-    getReplies(threadId) {
+    getReplies(threadId, board) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             var curr = this;
             let replies = [];
             var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
             // get replies and order by timestamp
-            db.collection('original-post/' + threadId + '/replies').orderBy('timestamp').get().then(function (querySnapshot) {
+            db.collection(board + '/' + threadId + '/replies').orderBy('timestamp').get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     var item = doc.data();
                     console.log(doc.data());
@@ -86,18 +73,17 @@ let ItemService = class ItemService {
         });
     }
     // return the items
-    getPosts() {
-        var curr = this;
-        curr.posts = [];
-        var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
-        db.collection('original-post').get().then(function (querySnapshot) {
+    getPosts(collectionName) {
+        let postList = [];
+        let db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
+        db.collection(collectionName).get().then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
                 var item = doc.data();
                 console.log(doc.data());
                 console.log(doc.ref.id);
                 // add item to the database
                 // ensure doc is there for deletion
-                curr.posts.push({
+                postList.push({
                     text: item.text,
                     title: item.title,
                     timestamp: item.timestamp,
@@ -105,18 +91,18 @@ let ItemService = class ItemService {
                 });
                 // check to see if item has image
                 if (item.img != null) {
-                    curr.posts[curr.posts.length - 1]['img'] = item.img;
+                    postList[postList.length - 1]['img'] = item.img;
                 }
             });
         });
-        curr.events.publish('dataloaded', Date.now());
+        return postList;
     }
     // used to create post without image
-    createPostNoImage(title, text) {
+    createPostNoImage(title, text, board) {
         var self = this;
         // add to db
         var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
-        db.collection("original-post").add({
+        db.collection(board).add({
             title: title,
             text: text,
             timestamp: Date.now()
@@ -128,7 +114,8 @@ let ItemService = class ItemService {
                 title: title,
                 text: text,
                 docId: docRef.id,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                board: board
             });
         })
             .catch(function (error) {
@@ -136,14 +123,14 @@ let ItemService = class ItemService {
         });
         // update list as item is now gone
         this.events.publish('dataloaded', Date.now());
-        this.getPosts();
+        ;
     }
     // this will create a new post with a picture
-    createPost(title, text, img) {
+    createPost(title, text, img, board) {
         var self = this;
         // add to db
         var db = firebase__WEBPACK_IMPORTED_MODULE_3__["firestore"]();
-        db.collection("original-post").add({
+        db.collection(board).add({
             title: title,
             text: text,
             timestamp: Date.now(),
@@ -157,7 +144,8 @@ let ItemService = class ItemService {
                 text: text,
                 img: img,
                 timestamp: Date.now(),
-                docId: docRef.id
+                docId: docRef.id,
+                board: board
             });
         })
             .catch(function (error) {
@@ -165,7 +153,6 @@ let ItemService = class ItemService {
         });
         // update list as item is now gone
         this.events.publish('dataloaded', Date.now());
-        this.getPosts();
     }
     // displays message telling user that new item was added
     presentToast(message) {
@@ -177,15 +164,6 @@ let ItemService = class ItemService {
                 showCloseButton: true
             });
             toast.present();
-        });
-    }
-    filterPosts(searchTerm) {
-        console.log("filtering: " + searchTerm);
-        if (searchTerm == "") {
-            return this.posts;
-        }
-        return this.posts.filter(post => {
-            return post.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
         });
     }
 };
@@ -200,16 +178,6 @@ ItemService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
 ], ItemService);
 
-const snapshotToArray = snapshot => {
-    let returnArr = [];
-    snapshot.forEach(childSnapshot => {
-        let item = childSnapshot.val();
-        item.key = childSnapshot.key;
-        console.log(item);
-        returnArr.push(item);
-    });
-    return returnArr;
-};
 
 
 /***/ }),

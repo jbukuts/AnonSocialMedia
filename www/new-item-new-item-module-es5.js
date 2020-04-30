@@ -148,8 +148,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var NewItemPage = /** @class */ (function () {
-    function NewItemPage(router, formBuilder, itemService, toastController, camera, actionSheet, file) {
+    function NewItemPage(router, formBuilder, itemService, toastController, camera, actionSheet, file, route) {
         this.router = router;
         this.formBuilder = formBuilder;
         this.itemService = itemService;
@@ -157,6 +158,7 @@ var NewItemPage = /** @class */ (function () {
         this.camera = camera;
         this.actionSheet = actionSheet;
         this.file = file;
+        this.route = route;
         this.regex = "^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$";
     }
     NewItemPage.prototype.pickImage = function (sourceType) {
@@ -234,6 +236,15 @@ var NewItemPage = /** @class */ (function () {
         });
     };
     NewItemPage.prototype.ngOnInit = function () {
+        var _this = this;
+        // we need to get the board to post the thread to
+        this.route.params.subscribe(function (param) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.board = param.board;
+                console.log(this.board);
+                return [2 /*return*/];
+            });
+        }); });
         this.new_post_form = this.formBuilder.group({
             title: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
             text: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
@@ -251,7 +262,7 @@ var NewItemPage = /** @class */ (function () {
                         // add item through use of service module and reset form
                         console.log(this.imgFile);
                         if (this.imgFile == null) {
-                            this.itemService.createPostNoImage(value.title, value.text);
+                            this.itemService.createPostNoImage(value.title, value.text, this.board);
                             this.new_post_form.reset();
                             this.presentToast();
                             this.router.navigate(['./home']);
@@ -267,7 +278,7 @@ var NewItemPage = /** @class */ (function () {
                             })];
                     case 2:
                         _a.sent();
-                        this.itemService.createPost(value.title, value.text, imgUrl);
+                        this.itemService.createPost(value.title, value.text, imgUrl, this.board);
                         this.new_post_form.reset();
                         this.presentToast();
                         // return to home page
@@ -284,7 +295,8 @@ var NewItemPage = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"] },
         { type: _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_5__["Camera"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"] },
-        { type: _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"] }
+        { type: _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
     ]; };
     NewItemPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -298,7 +310,8 @@ var NewItemPage = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"],
             _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_5__["Camera"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"],
-            _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"]])
+            _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_6__["File"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
     ], NewItemPage);
     return NewItemPage;
 }());

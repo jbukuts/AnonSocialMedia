@@ -13,6 +13,7 @@ import * as firebase from 'firebase';
 export class SearchPostsPage implements OnInit {
 
   public posts: any;
+  public filterPost: any
   searchTerm: string = "";
 
   constructor(
@@ -20,23 +21,24 @@ export class SearchPostsPage implements OnInit {
     public itemService: ItemService,
     public events: Events,
   ) { 
-    var self=this;
-    events.subscribe('dataloaded', (time) => {
-      self.posts = [];
-      self.posts = self.itemService.posts;
-      // user and time are the same arguments passed in `events.publish(user, time)`
-      console.log('data reloading  time:', time);
-      console.log(self.posts);
-    });
-    self.itemService.getPosts();
   }
 
-  ngOnInit() {
-    this.setFilteredPosts();
+  async ngOnInit() {
+    var self = this;
+    self.posts = await self.itemService.getPosts('original-post');
+    self.filterPost = self.posts;
   }
 
   setFilteredPosts() {
-    this.posts = this.itemService.filterPosts(this.searchTerm);
+    console.log("filtering: " + this.searchTerm);
+
+    if (this.searchTerm == "") {
+      this.filterPost = this.posts;
+    }
+
+    this.filterPost = this.posts.filter(post => {
+      return post.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    });
   }
 
   getTitle(title) {

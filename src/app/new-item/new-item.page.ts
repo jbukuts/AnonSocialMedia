@@ -6,6 +6,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { v1 as uuidv1 } from 'uuid';
 import * as firebase from 'firebase';
+import { ActivatedRoute } from '@angular/router';
+
 
 
 
@@ -19,6 +21,7 @@ import { ItemService } from '../item.service';
 export class NewItemPage implements OnInit {
 
   imgFile;
+  board;
 
   
   new_post_form: FormGroup;
@@ -32,6 +35,7 @@ export class NewItemPage implements OnInit {
     private camera: Camera,
     public actionSheet : ActionSheetController,
     private file : File,
+    private route: ActivatedRoute
 
   ) { }
 
@@ -91,6 +95,15 @@ export class NewItemPage implements OnInit {
   }
 
   ngOnInit() {
+
+    // we need to get the board to post the thread to
+    this.route.params.subscribe(
+      async param => {
+        this.board = param.board;
+        console.log(this.board);
+      }
+    );
+
     this.new_post_form = this.formBuilder.group({
       title: new FormControl('',Validators.required),
       text: new FormControl('',Validators.required),
@@ -108,7 +121,7 @@ export class NewItemPage implements OnInit {
 
 
     if (this.imgFile == null) {
-      this.itemService.createPostNoImage(value.title, value.text);
+      this.itemService.createPostNoImage(value.title, value.text, this.board);
       this.new_post_form.reset();
       this.presentToast();
       this.router.navigate(['./home']);
@@ -125,7 +138,7 @@ export class NewItemPage implements OnInit {
       imgUrl = downloadURL;
     }); 
 
-    this.itemService.createPost(value.title,value.text,imgUrl);
+    this.itemService.createPost(value.title,value.text,imgUrl, this.board);
     this.new_post_form.reset();
     this.presentToast()
 

@@ -484,7 +484,7 @@ var routes = [
     },
     {
         path: 'product-detail',
-        loadChildren: function () { return Promise.all(/*! import() | product-detail-product-detail-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("default~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("common"), __webpack_require__.e("product-detail-product-detail-module")]).then(__webpack_require__.bind(null, /*! ./product-detail/product-detail.module */ "./src/app/product-detail/product-detail.module.ts")).then(function (m) { return m.ProductDetailPageModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | product-detail-product-detail-module */[__webpack_require__.e("default~new-item-new-item-module~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("default~image-modal-image-modal-module~product-detail-product-detail-module"), __webpack_require__.e("default~product-detail-product-detail-module~reply-modal-reply-modal-module"), __webpack_require__.e("common"), __webpack_require__.e("product-detail-product-detail-module")]).then(__webpack_require__.bind(null, /*! ./product-detail/product-detail.module */ "./src/app/product-detail/product-detail.module.ts")).then(function (m) { return m.ProductDetailPageModule; }); }
     },
     {
         path: 'order-detail',
@@ -496,7 +496,7 @@ var routes = [
     },
     {
         path: 'image-modal',
-        loadChildren: function () { return __webpack_require__.e(/*! import() | image-modal-image-modal-module */ "common").then(__webpack_require__.bind(null, /*! ./image-modal/image-modal.module */ "./src/app/image-modal/image-modal.module.ts")).then(function (m) { return m.ImageModalPageModule; }); }
+        loadChildren: function () { return __webpack_require__.e(/*! import() | image-modal-image-modal-module */ "default~image-modal-image-modal-module~product-detail-product-detail-module").then(__webpack_require__.bind(null, /*! ./image-modal/image-modal.module */ "./src/app/image-modal/image-modal.module.ts")).then(function (m) { return m.ImageModalPageModule; }); }
     },
     {
         path: 'settings',
