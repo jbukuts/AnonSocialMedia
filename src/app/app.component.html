@@ -30,7 +30,7 @@
         <ion-list style="margin-bottom: 0px;">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of yourStuff">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" lines=none>
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-icon slot="start" [name]="p.icon" color="dark"></ion-icon>
               <ion-label>
                 {{p.title}}
               </ion-label>
