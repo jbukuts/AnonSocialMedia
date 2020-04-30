@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { ItemService } from '../item.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-change-theme',
@@ -20,7 +21,8 @@ export class ChangeThemePage implements OnInit {
   constructor(
     private theme: ThemeService,
     private itemservice: ItemService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    @Inject(DOCUMENT) private document: Document
   ) {   }
 
   ngOnInit() {

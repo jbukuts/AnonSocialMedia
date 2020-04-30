@@ -10,6 +10,7 @@
 
     ion-alert.select-alert {
       --color: #ffffff !important;
+      --background-color: #222428;
 
       button {
         color: #ffffff !important;
@@ -17,6 +18,10 @@
 
       .sc-ion-alert-md {
         color: #ffffff;
+      }
+      .sc-ion-alert-ios {
+        color: #ffffff;
+        background-color: #222428;
       }
     }
 
